@@ -19,6 +19,21 @@ export default function AboutForm() {
     );
   }
 
+  if (!content.length) {
+    return (
+      <div className="text-center text-white/70 p-8">
+        No about content found. Please add content first.
+      </div>
+    );
+  }
+
+  const fieldLabels: Record<string, string> = {
+    "about.title": "Title",
+    "about.description": "Main Description",
+    "about.secondary_description": "Secondary Description",
+    "about.skills": "Skills (comma-separated)",
+  };
+
   return (
     <ScrollArea className="h-[600px] pr-4">
       <div className="space-y-6">
@@ -29,6 +44,11 @@ export default function AboutForm() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
+            <div className="mb-2">
+              <h3 className="text-sm font-medium text-white/90">
+                {fieldLabels[item.key] || item.key}
+              </h3>
+            </div>
             <SiteContentForm
               contentKey={item.key}
               initialValue={item.value}

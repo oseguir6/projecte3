@@ -1,13 +1,1 @@
-[
-  {
-    "title": "Blog",
-    "content": "<h2>\nproBBA</h2>\n<ul>\n<li>aa</li>\n</ul>",
-    "image": "https://example.com",
-    "tags": [
-      "hacking"
-    ],
-    "published": true,
-    "id": 2,
-    "createdAt": "2025-02-09T12:02:37.732Z"
-  }
-]
+[]
