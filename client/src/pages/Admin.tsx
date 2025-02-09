@@ -25,11 +25,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Terminal, Users, Eye } from "lucide-react";
-import type { Contact, Visit, Project, Technology, Blog } from "@shared/schema";
+import type { Contact, Visit, Project, Technology, Blog, SiteContent } from "@shared/schema";
 import { useState } from "react";
 import SiteContentForm from "@/components/SiteContentForm";
 import BlogForm from "@/components/BlogForm";
-import AboutForm from "@/components/AboutForm";
 
 export default function Admin() {
   const [_, setLocation] = useLocation();
@@ -60,6 +59,12 @@ export default function Admin() {
   const { data: blogs = [] } = useQuery<Blog[]>({
     queryKey: ["/api/blogs"],
   });
+
+  const { data: siteContent = [] } = useQuery<SiteContent[]>({
+    queryKey: ["/api/site-content"],
+  });
+
+  const aboutContent = siteContent.filter((item) => item.key.startsWith("about."));
 
   const createProjectMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -219,28 +224,8 @@ export default function Admin() {
     }
   };
 
-  // Process visits data for the chart
-  const visitsByPage = visits.reduce((acc: { [key: string]: number }, visit) => {
-    acc[visit.page] = (acc[visit.page] || 0) + 1;
-    return acc;
-  }, {});
-
-  const chartData = Object.entries(visitsByPage).map(([page, count]) => ({
-    page,
-    visits: count,
-  }));
-
-  const totalVisits = visits.length;
-  const uniquePages = Object.keys(visitsByPage).length;
-  const totalContacts = contacts.length;
-
-  const { data: siteContent = [] } = useQuery({
-    queryKey: ["/api/site-content"],
-  });
-
-  // Reemplazar la mutación updateSiteContentMutation existente con esta versión actualizada
   const updateSiteContentMutation = useMutation({
-    mutationFn: async ({ key, value }: { key: string, value: string }) => {
+    mutationFn: async ({ key, value }: { key: string; value: string }) => {
       const response = await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
       if (!response.ok) {
         const error = await response.json();
@@ -263,7 +248,6 @@ export default function Admin() {
       });
     },
   });
-
 
   const createBlogMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -329,547 +313,506 @@ export default function Admin() {
     },
   });
 
+  // Process visits data for the chart
+  const visitsByPage = visits.reduce((acc: { [key: string]: number }, visit) => {
+    acc[visit.page] = (acc[visit.page] || 0) + 1;
+    return acc;
+  }, {});
+
+  const chartData = Object.entries(visitsByPage).map(([page, count]) => ({
+    page,
+    visits: count,
+  }));
+
+  const totalVisits = visits.length;
+  const uniquePages = Object.keys(visitsByPage).length;
+  const totalContacts = contacts.length;
+
   return (
-    <>
-      <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
-        <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
-          <DialogHeader>
-            <DialogTitle className="text-white">
-              {selectedProject ? "Edit Project" : "Create New Project"}
-            </DialogTitle>
-            <DialogDescription>
-              Add or update project details below
-            </DialogDescription>
-          </DialogHeader>
-          <ProjectForm
-            initialData={selectedProject || undefined}
-            onSubmit={handleProjectSubmit}
-            onCancel={() => {
-              setIsProjectModalOpen(false);
-              setSelectedProject(null);
-            }}
-          />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={isTechnologyModalOpen} onOpenChange={setIsTechnologyModalOpen}>
-        <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
-          <DialogHeader>
-            <DialogTitle className="text-white">
-              {selectedTechnology ? "Edit Technology" : "Create New Technology"}
-            </DialogTitle>
-            <DialogDescription>
-              Add or update technology details below
-            </DialogDescription>
-          </DialogHeader>
-          <TechnologyForm
-            initialData={selectedTechnology || undefined}
-            onSubmit={handleTechnologySubmit}
-            onCancel={() => {
-              setIsTechnologyModalOpen(false);
-              setSelectedTechnology(null);
-            }}
-          />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={isBlogModalOpen} onOpenChange={setIsBlogModalOpen}>
-        <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
-          <DialogHeader>
-            <DialogTitle className="text-white">
-              {selectedBlog ? "Edit Blog Post" : "Create New Blog Post"}
-            </DialogTitle>
-            <DialogDescription>
-              {selectedBlog ? "Update your blog post details below" : "Add a new blog post to your portfolio"}
-            </DialogDescription>
-          </DialogHeader>
-          <BlogForm
-            initialData={selectedBlog || undefined}
-            onSubmit={(data) => {
-              if (selectedBlog) {
-                updateBlogMutation.mutate({ id: selectedBlog.id, data });
-              } else {
-                createBlogMutation.mutate(data);
-              }
-            }}
-            onCancel={() => {
-              setIsBlogModalOpen(false);
-              setSelectedBlog(null);
-            }}
-          />
-        </DialogContent>
-      </Dialog>
-
-      <div className="min-h-screen bg-[#0A0A0A] pt-20">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-3">
-              <Terminal className="h-8 w-8 text-[#E94560]" />
-              <motion.h1
-                className="text-3xl font-bold text-white"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-              >
-                System Dashboard
-              </motion.h1>
-            </div>
-            <Button
-              variant="destructive"
-              onClick={() => logoutMutation.mutate()}
-              disabled={logoutMutation.isPending}
+    <div className="min-h-screen bg-[#0A0A0A] pt-20">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center gap-3">
+            <Terminal className="h-8 w-8 text-[#E94560]" />
+            <motion.h1
+              className="text-3xl font-bold text-white"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
             >
-              {logoutMutation.isPending ? "Logging out..." : "Logout"}
-            </Button>
+              System Dashboard
+            </motion.h1>
           </div>
+          <Button
+            variant="destructive"
+            onClick={() => logoutMutation.mutate()}
+            disabled={logoutMutation.isPending}
+          >
+            {logoutMutation.isPending ? "Logging out..." : "Logout"}
+          </Button>
+        </div>
 
-          {/* Stats Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-[#1A1A2E] border-[#16213E]">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-white text-lg font-medium">Total Visits</CardTitle>
+              <Eye className="h-4 w-4 text-[#E94560]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{totalVisits}</div>
+              <p className="text-xs text-white/60">Across all pages</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-[#1A1A2E] border-[#16213E]">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-white text-lg font-medium">Unique Pages</CardTitle>
+              <Terminal className="h-4 w-4 text-[#E94560]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{uniquePages}</div>
+              <p className="text-xs text-white/60">Different pages visited</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-[#1A1A2E] border-[#16213E]">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-white text-lg font-medium">Messages</CardTitle>
+              <Users className="h-4 w-4 text-[#E94560]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{totalContacts}</div>
+              <p className="text-xs text-white/60">Contact form submissions</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Tabs defaultValue="about" className="w-full">
+          <TabsList className="grid w-full grid-cols-7 max-w-[1000px]">
+            <TabsTrigger value="about">About</TabsTrigger>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="technologies">Technologies</TabsTrigger>
+            <TabsTrigger value="blogs">Blogs</TabsTrigger>
+            <TabsTrigger value="content">Site Content</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="messages">Messages</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="about">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-white text-lg font-medium">Total Visits</CardTitle>
-                <Eye className="h-4 w-4 text-[#E94560]" />
+              <CardHeader>
+                <CardTitle className="text-white">About Page Content</CardTitle>
+                <CardDescription>
+                  Edit your about page content
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-white">{totalVisits}</div>
-                <p className="text-xs text-white/60">Across all pages</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-[#1A1A2E] border-[#16213E]">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-white text-lg font-medium">Unique Pages</CardTitle>
-                <Terminal className="h-4 w-4 text-[#E94560]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-white">{uniquePages}</div>
-                <p className="text-xs text-white/60">Different pages visited</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-[#1A1A2E] border-[#16213E]">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-white text-lg font-medium">Messages</CardTitle>
-                <Users className="h-4 w-4 text-[#E94560]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-white">{totalContacts}</div>
-                <p className="text-xs text-white/60">Contact form submissions</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Tabs defaultValue="projects" className="w-full">
-            <TabsList className="grid w-full grid-cols-7 max-w-[1000px]">
-              <TabsTrigger value="projects">Projects</TabsTrigger>
-              <TabsTrigger value="technologies">Technologies</TabsTrigger>
-              <TabsTrigger value="blogs">Blogs</TabsTrigger>
-              <TabsTrigger value="about">About</TabsTrigger>
-              <TabsTrigger value="content">Site Content</TabsTrigger>
-              <TabsTrigger value="analytics">Analytics</TabsTrigger>
-              <TabsTrigger value="messages">Messages</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="projects">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle className="text-white">Projects Management</CardTitle>
-                      <CardDescription>
-                        Manage your portfolio projects
-                      </CardDescription>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setSelectedProject(null);
-                        setIsProjectModalOpen(true);
-                      }}
-                      className="bg-[#E94560] hover:bg-[#E94560]/90"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add New Project
-                    </Button>
+                <ScrollArea className="h-[600px] pr-4">
+                  <div className="space-y-6">
+                    {aboutContent.map((content) => (
+                      <motion.div
+                        key={content.key}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <SiteContentForm
+                          contentKey={content.key}
+                          initialValue={content.value}
+                          isLongText={content.key.includes("description")}
+                          onSubmit={({ value }) =>
+                            updateSiteContentMutation.mutate({ key: content.key, value })
+                          }
+                        />
+                      </motion.div>
+                    ))}
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <ScrollArea className="h-[600px] pr-4">
-                    <div className="space-y-4">
-                      {projects.map((project) => (
-                        <motion.div
-                          key={project.id}
-                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <div className="flex justify-between items-start mb-2">
-                            <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-white">
-                                {project.title}
-                              </h3>
-                              <p className="text-white/70 mt-1">
-                                {project.description}
-                              </p>
-                              <div className="flex flex-wrap gap-2 mt-2">
-                                {project.tags.map((tag) => (
-                                  <span
-                                    key={tag}
-                                    className="px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => {
-                                  setSelectedProject(project);
-                                  setIsProjectModalOpen(true);
-                                }}
-                                className="border-[#E94560] hover:bg-[#E94560]/10"
-                              >
-                                <Pencil className="w-4 h-4" />
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="icon"
-                                onClick={() => deleteProjectMutation.mutate(project.id)}
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="projects">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-white">Projects Management</CardTitle>
+                    <CardDescription>
+                      Manage your portfolio projects
+                    </CardDescription>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      setSelectedProject(null);
+                      setIsProjectModalOpen(true);
+                    }}
+                    className="bg-[#E94560] hover:bg-[#E94560]/90"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add New Project
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] pr-4">
+                  <div className="space-y-4">
+                    {projects.map((project) => (
+                      <motion.div
+                        key={project.id}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex-1">
+                            <h3 className="text-lg font-semibold text-white">
+                              {project.title}
+                            </h3>
+                            <p className="text-white/70 mt-1">
+                              {project.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {project.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
                             </div>
                           </div>
-                          <div className="aspect-[2/1] overflow-hidden rounded-lg mt-4">
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                setSelectedProject(project);
+                                setIsProjectModalOpen(true);
+                              }}
+                              className="border-[#E94560] hover:bg-[#E94560]/10"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              onClick={() => deleteProjectMutation.mutate(project.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                        <div className="aspect-[2/1] overflow-hidden rounded-lg mt-4">
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="technologies">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-white">Technologies Management</CardTitle>
+                    <CardDescription>
+                      Manage your services and tech stack
+                    </CardDescription>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      setSelectedTechnology(null);
+                      setIsTechnologyModalOpen(true);
+                    }}
+                    className="bg-[#E94560] hover:bg-[#E94560]/90"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add New Technology
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] pr-4">
+                  <div className="space-y-4">
+                    {technologies.map((tech) => (
+                      <motion.div
+                        key={tech.id}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3">
+                              <div className="text-[#E94560]" dangerouslySetInnerHTML={{ __html: tech.icon }} />
+                              <h3 className="text-lg font-semibold text-white">
+                                {tech.name}
+                              </h3>
+                            </div>
+                            <span className="inline-block px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full mt-2">
+                              {tech.type}
+                            </span>
+                            {tech.description && (
+                              <p className="text-white/70 mt-2">
+                                {tech.description}
+                              </p>
+                            )}
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                setSelectedTechnology(tech);
+                                setIsTechnologyModalOpen(true);
+                              }}
+                              className="border-[#E94560] hover:bg-[#E94560]/10"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              onClick={() => deleteTechnologyMutation.mutate(tech.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="blogs">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-white">Blog Management</CardTitle>
+                    <CardDescription>
+                      Manage your blog posts
+                    </CardDescription>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      setSelectedBlog(null);
+                      setIsBlogModalOpen(true);
+                    }}
+                    className="bg-[#E94560] hover:bg-[#E94560]/90"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add New Blog Post
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] pr-4">
+                  <div className="space-y-4">
+                    {blogs.map((blog) => (
+                      <motion.div
+                        key={blog.id}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-lg font-semibold text-white">
+                                {blog.title}
+                              </h3>
+                              {blog.published ? (
+                                <span className="px-2 py-1 text-xs bg-green-500/20 text-green-500 rounded-full">
+                                  Published
+                                </span>
+                              ) : (
+                                <span className="px-2 py-1 text-xs bg-yellow-500/20 text-yellow-500 rounded-full">
+                                  Draft
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {blog.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                            <p className="text-white/70 mt-2 line-clamp-2">
+                              {blog.content}
+                            </p>
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                setSelectedBlog(blog);
+                                setIsBlogModalOpen(true);
+                              }}
+                              className="border-[#E94560] hover:bg-[#E94560]/10"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              onClick={() => deleteBlogMutation.mutate(blog.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                        {blog.image && (
+                          <div className="aspect-video overflow-hidden rounded-lg mt-4">
                             <img
-                              src={project.image}
-                              alt={project.title}
+                              src={blog.image}
+                              alt={blog.title}
                               className="w-full h-full object-cover"
                             />
                           </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="technologies">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle className="text-white">Technologies Management</CardTitle>
-                      <CardDescription>
-                        Manage your services and tech stack
-                      </CardDescription>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setSelectedTechnology(null);
-                        setIsTechnologyModalOpen(true);
-                      }}
-                      className="bg-[#E94560] hover:bg-[#E94560]/90"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add New Technology
-                    </Button>
+                        )}
+                      </motion.div>
+                    ))}
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <ScrollArea className="h-[600px] pr-4">
-                    <div className="space-y-4">
-                      {technologies.map((tech) => (
-                        <motion.div
-                          key={tech.id}
-                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <div className="flex justify-between items-start">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3">
-                                <div className="text-[#E94560]" dangerouslySetInnerHTML={{ __html: tech.icon }} />
-                                <h3 className="text-lg font-semibold text-white">
-                                  {tech.name}
-                                </h3>
-                              </div>
-                              <span className="inline-block px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full mt-2">
-                                {tech.type}
-                              </span>
-                              {tech.description && (
-                                <p className="text-white/70 mt-2">
-                                  {tech.description}
-                                </p>
-                              )}
-                            </div>
-                            <div className="flex gap-2">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => {
-                                  setSelectedTechnology(tech);
-                                  setIsTechnologyModalOpen(true);
-                                }}
-                                className="border-[#E94560] hover:bg-[#E94560]/10"
-                              >
-                                <Pencil className="w-4 h-4" />
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="icon"
-                                onClick={() => deleteTechnologyMutation.mutate(tech.id)}
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="blogs">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <CardTitle className="text-white">Blog Management</CardTitle>
-                      <CardDescription>
-                        Manage your blog posts
-                      </CardDescription>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        setSelectedBlog(null);
-                        setIsBlogModalOpen(true);
-                      }}
-                      className="bg-[#E94560] hover:bg-[#E94560]/90"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add New Blog Post
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ScrollArea className="h-[600px] pr-4">
-                    <div className="space-y-4">
-                      {blogs.map((blog) => (
-                        <motion.div
-                          key={blog.id}
-                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <div className="flex justify-between items-start">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2">
-                                <h3 className="text-lg font-semibold text-white">
-                                  {blog.title}
-                                </h3>
-                                {blog.published ? (
-                                  <span className="px-2 py-1 text-xs bg-green-500/20 text-green-500 rounded-full">
-                                    Published
-                                  </span>
-                                ) : (
-                                  <span className="px-2 py-1 text-xs bg-yellow-500/20 text-yellow-500 rounded-full">
-                                    Draft
-                                  </span>
-                                )}
-                              </div>
-                              <div className="flex flex-wrap gap-2 mt-2">
-                                {blog.tags.map((tag) => (
-                                  <span
-                                    key={tag}
-                                    className="px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                              <p className="text-white/70 mt-2 line-clamp-2">
-                                {blog.content}
-                              </p>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => {
-                                  setSelectedBlog(blog);
-                                  setIsBlogModalOpen(true);
-                                }}
-                                className="border-[#E94560] hover:bg-[#E94560]/10"
-                              >
-                                <Pencil className="w-4 h-4" />
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="icon"
-                                onClick={() => deleteBlogMutation.mutate(blog.id)}
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
-                          {blog.image && (
-                            <div className="aspect-video overflow-hidden rounded-lg mt-4">
-                              <img
-                                src={blog.image}
-                                alt={blog.title}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="content">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <CardTitle className="text-white">Site Content Management</CardTitle>
-                  <CardDescription>
-                    Edit website content and texts
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ScrollArea className="h-[600px] pr-4">
-                    <div className="space-y-6">
-                      {siteContent.map((content) => (
-                        <motion.div
-                          key={content.key}
-                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <SiteContentForm
-                            contentKey={content.key}
-                            initialValue={content.value}
-                            isLongText={content.key.includes("description")}
-                            onSubmit={({ value }) =>
-                              updateSiteContentMutation.mutate({ key: content.key, value })
-                            }
-                            onCancel={() => {}}
-                          />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="about">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <CardTitle className="text-white">About Page Content</CardTitle>
-                  <CardDescription>
-                    Edit your about page content
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <AboutForm />
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="analytics">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <CardTitle className="text-white">Page Visits Analytics</CardTitle>
-                  <CardDescription>
-                    Visual representation of page visits
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[400px] mt-4">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={chartData}>
-                        <XAxis
-                          dataKey="page"
-                          stroke="#ffffff60"
-                          fontSize={12}
-                          tickFormatter={(value) => value.replace("/", "")}
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="content">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <CardTitle className="text-white">Site Content Management</CardTitle>
+                <CardDescription>
+                  Edit website content and texts
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] pr-4">
+                  <div className="space-y-6">
+                    {siteContent.map((content) => (
+                      <motion.div
+                        key={content.key}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <SiteContentForm
+                          contentKey={content.key}
+                          initialValue={content.value}
+                          isLongText={content.key.includes("description")}
+                          onSubmit={({ value }) =>
+                            updateSiteContentMutation.mutate({ key: content.key, value })
+                          }
+                          onCancel={() => {}}
                         />
-                        <YAxis stroke="#ffffff60" fontSize={12} />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: "#1A1A2E",
-                            border: "1px solid #16213E",
-                            borderRadius: "4px",
-                            color: "#fff",
-                          }}
-                        />
-                        <Bar dataKey="visits" fill="#E94560" />
-                      </BarChart>
-                    </ResponsiveContainer>
+                      </motion.div>
+                    ))}
                   </div>
-
-                  <ScrollArea className="h-[200px] mt-6 rounded-md border border-[#16213E] p-4">
-                    <div className="space-y-2">
-                      {chartData.map(({ page, visits }) => (
-                        <motion.div
-                          key={page}
-                          className="bg-[#0A0A0A] p-3 rounded-lg flex justify-between items-center"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <code className="text-[#E94560]">{page}</code>
-                          <span className="text-white/60">{visits} visits</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="messages">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <CardTitle className="text-white">Contact Messages</CardTitle>
-                  <CardDescription>
-                    Recent contact form submissions
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ScrollArea className="h-[600px] rounded-md border border-[#16213E] p-4">
-                    <div className="space-y-4">
-                      {contacts.map((contact) => (
-                        <motion.div
-                          key={contact.id}
-                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-lg font-semibold text-white">
-                              {contact.name}
-                            </h3>
-                            <span className="text-sm text-[#E94560]">
-                              {new Date(contact.createdAt!).toLocaleString()}
-                            </span>
-                          </div>
-                          <code className="text-white/80 block mb-2">{contact.email}</code>
-                          <p className="text-white/70 bg-[#1A1A2E] p-3 rounded">
-                            {contact.message}
-                          </p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="analytics">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <CardTitle className="text-white">Page Visits Analytics</CardTitle>
+                <CardDescription>
+                  Visual representation of page visits
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[400px] mt-4">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData}>
+                      <XAxis
+                        dataKey="page"
+                        stroke="#ffffff60"
+                        fontSize={12}
+                        tickFormatter={(value) => value.replace("/", "")}
+                      />
+                      <YAxis stroke="#ffffff60" fontSize={12} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#1A1A2E",
+                          border: "1px solid #16213E",
+                          borderRadius: "4px",
+                          color: "#fff",
+                        }}
+                      />
+                      <Bar dataKey="visits" fill="#E94560" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <ScrollArea className="h-[200px] mt-6 rounded-md border border-[#16213E] p-4">
+                  <div className="space-y-2">
+                    {chartData.map(({ page, visits }) => (
+                      <motion.div
+                        key={page}
+                        className="bg-[#0A0A0A] p-3 rounded-lg flex justify-between items-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <code className="text-[#E94560]">{page}</code>
+                        <span className="text-white/60">{visits} visits</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="messages">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <CardTitle className="text-white">Contact Messages</CardTitle>
+                <CardDescription>
+                  Recent contact form submissions
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] rounded-md border border-[#16213E] p-4">
+                  <div className="space-y-4">
+                    {contacts.map((contact) => (
+                      <motion.div
+                        key={contact.id}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-lg font-semibold text-white">
+                            {contact.name}
+                          </h3>
+                          <span className="text-sm text-[#E94560]">
+                            {new Date(contact.createdAt!).toLocaleString()}
+                          </span>
+                        </div>
+                        <code className="text-white/80 block mb-2">{contact.email}</code>
+                        <p className="text-white/70 bg-[#1A1A2E] p-3 rounded">
+                          {contact.message}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </>
+    </div>
   );
 }
