@@ -15,10 +15,10 @@ export default function Navigation() {
   });
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
-    { href: "/contact", label: "Contact" }
+    { href: "/", label: "Inicio" },
+    { href: "/about", label: "Sobre mí" },
+    { href: "/projects", label: "Proyectos" },
+    { href: "/contact", label: "Contacto" }
   ];
 
   return (
