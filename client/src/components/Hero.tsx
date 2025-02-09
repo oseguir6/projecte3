@@ -139,7 +139,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            {techList.split(',').map((tech, index) => (
+            {techList.split(',').map((tech: string, index: number) => (
               <motion.div
                 key={tech}
                 className="px-4 py-2 bg-[#1A1A2E] rounded-md text-white/70 border border-[#16213E] hover:border-[#E94560] transition-colors"
@@ -148,7 +148,7 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 + (index * 0.1) }}
               >
-                {tech}
+                {tech.trim()}
               </motion.div>
             ))}
           </motion.div>

@@ -2,79 +2,79 @@
   {
     "id": null,
     "key": "hero.title",
-    "value": "Hola, soy VWolf",
-    "createdAt": "2025-02-09T11:08:32.343Z"
+    "value": "Hola, soy Dev",
+    "createdAt": "2025-02-09T11:31:45.288Z"
   },
   {
     "id": null,
     "key": "hero.subtitle",
     "value": "Desarrollador Full Stack",
-    "createdAt": "2025-02-09T11:08:32.343Z"
+    "createdAt": "2025-02-09T11:31:45.288Z"
   },
   {
     "id": null,
     "key": "hero.description",
     "value": "Me especializo en crear aplicaciones web modernas y escalables",
-    "createdAt": "2025-02-09T11:08:32.343Z"
-  },
-  {
-    "id": null,
-    "key": "technologies.title",
-    "value": "Tecnologías con las que trabajo",
-    "createdAt": "2025-02-09T11:08:32.343Z"
-  },
-  {
-    "id": null,
-    "key": "projects.title",
-    "value": "Proyectos Destacados",
-    "createdAt": "2025-02-09T11:08:32.343Z"
-  },
-  {
-    "id": null,
-    "key": "projects.subtitle",
-    "value": "Algunos de mis trabajos más recientes",
-    "createdAt": "2025-02-09T11:08:32.343Z"
-  },
-  {
-    "id": null,
-    "key": "contact.title",
-    "value": "Contacto",
-    "createdAt": "2025-02-09T11:08:32.344Z"
-  },
-  {
-    "id": null,
-    "key": "contact.description",
-    "value": "¿Tienes un proyecto en mente? ¡Hablemos!",
-    "createdAt": "2025-02-09T11:08:32.344Z"
+    "createdAt": "2025-02-09T11:31:45.288Z"
   },
   {
     "id": null,
     "key": "hero.button.projects",
     "value": "View Projects",
-    "createdAt": "2025-02-09T11:23:30.684Z"
+    "createdAt": "2025-02-09T11:31:45.288Z"
   },
   {
     "id": null,
     "key": "hero.button.contact",
     "value": "Contact Me",
-    "createdAt": "2025-02-09T11:23:30.684Z"
-  },
-  {
-    "id": null,
-    "key": "technologies.subtitle",
-    "value": "Tech Stack",
-    "createdAt": "2025-02-09T11:23:30.684Z"
-  },
-  {
-    "id": null,
-    "key": "technologies.list",
-    "value": "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux,Prueba",
-    "createdAt": "2025-02-09T11:27:07.758Z"
+    "createdAt": "2025-02-09T11:31:45.288Z"
   },
   {
     "id": null,
     "key": "hero.terminal.text",
     "value": "dev@portfolio:~$",
-    "createdAt": "2025-02-09T11:29:23.296Z"
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "technologies.title",
+    "value": "Tecnologías con las que trabajo",
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "technologies.subtitle",
+    "value": "Tech Stack",
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "technologies.list",
+    "value": "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux",
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "projects.title",
+    "value": "Proyectos Destacados",
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "projects.subtitle",
+    "value": "Algunos de mis trabajos más recientes",
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "contact.title",
+    "value": "Contacto",
+    "createdAt": "2025-02-09T11:31:45.289Z"
+  },
+  {
+    "id": null,
+    "key": "contact.description",
+    "value": "¿Tienes un proyecto en mente? ¡Hablemos!",
+    "createdAt": "2025-02-09T11:31:45.289Z"
   }
 ]
