@@ -47,16 +47,16 @@ export default function AboutForm() {
     general: [
       { key: "about.title", label: "Título" },
       { key: "about.subtitle", label: "Subtítulo" },
-      { key: "about.description", label: "Descripción", isLong: true }
+      { key: "about.description", label: "Descripción", isLong: true, isHtml: true }
     ],
     experience: [
-      { key: "about.experience", label: "Experiencia", isLong: true }
+      { key: "about.experience", label: "Experiencia", isLong: true, isHtml: true }
     ],
     skills: [
       { key: "about.skills", label: "Habilidades (separadas por comas)", isLong: true }
     ],
     education: [
-      { key: "about.education", label: "Educación", isLong: true }
+      { key: "about.education", label: "Educación", isLong: true, isHtml: true }
     ]
   };
 
@@ -87,6 +87,7 @@ export default function AboutForm() {
                     label={field.label}
                     initialValue={getValue(field.key)}
                     isLongText={field.isLong}
+                    isHtml={field.isHtml}
                     onSubmit={({ value }) => 
                       updateContentMutation.mutate({ key: field.key, value })
                     }

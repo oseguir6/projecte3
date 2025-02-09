@@ -76,5 +76,11 @@
     "key": "contact.description",
     "value": "¿Tienes un proyecto en mente? ¡Hablemos!",
     "createdAt": "2025-02-09T13:27:58.051Z"
+  },
+  {
+    "id": null,
+    "key": "about.title",
+    "value": "Oriol",
+    "createdAt": "2025-02-09T13:37:01.324Z"
   }
 ]

@@ -27,13 +27,14 @@ export default function About() {
             {getContent("about.subtitle")}
           </h2>
           <div className="prose prose-invert max-w-none">
-            <p className="text-lg mb-8">
-              {getContent("about.description")}
-            </p>
+            <div 
+              className="text-lg mb-8"
+              dangerouslySetInnerHTML={{ __html: getContent("about.description") }}
+            />
 
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-4">Experiencia</h3>
-              <p>{getContent("about.experience")}</p>
+              <div dangerouslySetInnerHTML={{ __html: getContent("about.experience") }} />
             </div>
 
             <div className="mb-8">
@@ -54,7 +55,7 @@ export default function About() {
 
             <div>
               <h3 className="text-xl font-semibold mb-4">Educación</h3>
-              <p>{getContent("about.education")}</p>
+              <div dangerouslySetInnerHTML={{ __html: getContent("about.education") }} />
             </div>
           </div>
         </motion.div>
