@@ -106,13 +106,18 @@ export type InsertBlog = z.infer<typeof insertBlogSchema>;
 export type Blog = typeof blogs.$inferSelect;
 
 export const defaultSiteContent = [
+  // About section
   { key: "about.title", value: "About Me" },
   { key: "about.subtitle", value: "My Journey" },
   { key: "about.description", value: "I'm a passionate full-stack developer with experience in modern web technologies." },
   { key: "about.experience.title", value: "Experience" },
+  { key: "about.experience.description", value: "Over 5 years of experience in web development" },
   { key: "about.skills.title", value: "Skills" },
+  { key: "about.skills", value: "React, TypeScript, Node.js, PostgreSQL" },
   { key: "about.education.title", value: "Education" },
+  { key: "about.education.description", value: "Bachelor's in Computer Science" },
   { key: "about.contact.title", value: "Get in Touch" },
+  { key: "about.image", value: "https://images.unsplash.com/photo-1573496799515-eebbb63814f2" },
   { key: "hero.terminal.text", value: "dev@portfolio:~$" },
   { key: "hero.title", value: "Hola, soy Dev" },
   { key: "hero.subtitle", value: "Desarrollador Full Stack" },
