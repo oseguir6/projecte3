@@ -10,6 +10,7 @@ import Projects from "@/pages/Projects";
 import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
 import Admin from "@/pages/Admin";
+import BlogPage from "@/pages/BlogPage";
 import NotFound from "@/pages/not-found";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/projects" component={Projects} />
       <Route path="/contact" component={Contact} />
       <Route path="/login" component={Login} />
+      <Route path="/blogs/:slug" component={BlogPage} />
       <ProtectedRoute path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
