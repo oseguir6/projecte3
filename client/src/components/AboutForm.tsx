@@ -25,24 +25,29 @@ type AboutFormValues = z.infer<typeof aboutFormSchema>;
 
 export default function AboutForm() {
   const { toast } = useToast();
-  const form = useForm<AboutFormValues>({
-    resolver: zodResolver(aboutFormSchema),
+
+  const { data: content = [], isLoading } = useQuery<SiteContent[]>({
+    queryKey: ["/api/site-content"],
+    select: (data) => data.filter((item) => item.key.startsWith("about.")),
   });
 
-  const { data: content, isLoading } = useQuery<SiteContent[]>({
-    queryKey: ["/api/site-content"],
-    select: (data) => {
-      return data.filter((item) => item.key.startsWith("about."));
-    },
+  const defaultValues = content.reduce((acc, item) => ({
+    ...acc,
+    [item.key]: item.value,
+  }), {} as AboutFormValues);
+
+  const form = useForm<AboutFormValues>({
+    resolver: zodResolver(aboutFormSchema),
+    defaultValues,
   });
 
   const updateMutation = useMutation({
-    mutationFn: async ({ key, value }: { key: string; value: string }) => {
-      const res = await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
-      if (!res.ok) {
-        throw new Error("Failed to update content");
-      }
-      return res.json();
+    mutationFn: async (data: AboutFormValues) => {
+      const updates = Object.entries(data).map(async ([key, value]) => {
+        await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
+      });
+
+      await Promise.all(updates);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });
@@ -60,30 +65,17 @@ export default function AboutForm() {
     },
   });
 
-  const onSubmit = async (data: AboutFormValues) => {
-    try {
-      for (const [key, value] of Object.entries(data)) {
-        if (content?.find(item => item.key === key)?.value !== value) {
-          await updateMutation.mutateAsync({ key, value });
-        }
-      }
-    } catch (error) {
-      console.error("Error updating about content:", error);
-    }
+  const onSubmit = (data: AboutFormValues) => {
+    updateMutation.mutate(data);
   };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <Loader2 className="h-8 w-8 animate-spin" />
+        <Loader2 className="h-8 w-8 animate-spin text-white" />
       </div>
     );
   }
-
-  const defaultValues = content?.reduce((acc, item) => ({
-    ...acc,
-    [item.key]: item.value
-  }), {}) as AboutFormValues;
 
   return (
     <Form {...form}>
@@ -96,7 +88,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Page Title</label>
                 <Input
                   placeholder="About Me"
-                  defaultValue={defaultValues?.["about.title"]}
                   {...form.register("about.title")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white"
                 />
@@ -109,7 +100,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Subtitle</label>
                 <Input
                   placeholder="My Journey"
-                  defaultValue={defaultValues?.["about.subtitle"]}
                   {...form.register("about.subtitle")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white"
                 />
@@ -122,7 +112,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Description</label>
                 <Textarea
                   placeholder="Share your story..."
-                  defaultValue={defaultValues?.["about.description"]}
                   {...form.register("about.description")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white min-h-[100px]"
                 />
@@ -140,7 +129,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Experience Section Title</label>
                 <Input
                   placeholder="Experience"
-                  defaultValue={defaultValues?.["about.experience.title"]}
                   {...form.register("about.experience.title")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white"
                 />
@@ -153,7 +141,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Skills Section Title</label>
                 <Input
                   placeholder="Skills"
-                  defaultValue={defaultValues?.["about.skills.title"]}
                   {...form.register("about.skills.title")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white"
                 />
@@ -166,7 +153,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Education Section Title</label>
                 <Input
                   placeholder="Education"
-                  defaultValue={defaultValues?.["about.education.title"]}
                   {...form.register("about.education.title")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white"
                 />
@@ -179,7 +165,6 @@ export default function AboutForm() {
                 <label className="text-sm font-medium text-white">Contact Section Title</label>
                 <Input
                   placeholder="Get in Touch"
-                  defaultValue={defaultValues?.["about.contact.title"]}
                   {...form.register("about.contact.title")}
                   className="bg-[#0A0A0A] border-[#16213E] text-white"
                 />
