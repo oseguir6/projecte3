@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "title": "pruena",
+    "description": "edf",
+    "image": "https://exemple.com",
+    "tags": [],
+    "category": "sdd",
+    "id": 2,
+    "createdAt": "2025-02-09T10:42:09.305Z"
+  }
+]

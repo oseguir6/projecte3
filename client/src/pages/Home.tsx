@@ -2,27 +2,8 @@ import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
 import { Code2, Palette, Globe2 } from "lucide-react";
-
-const projects = [
-  {
-    title: "Project Management Dashboard",
-    description: "A modern project management tool with real-time updates",
-    image: "https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8",
-    tags: ["React", "TypeScript", "Tailwind"]
-  },
-  {
-    title: "Analytics Platform",
-    description: "Data visualization and analytics dashboard",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
-    tags: ["Next.js", "D3.js", "API"]
-  },
-  {
-    title: "E-commerce Solution",
-    description: "Full-featured e-commerce platform with payment integration",
-    image: "https://images.unsplash.com/photo-1510759395231-72b17d622279",
-    tags: ["React", "Node.js", "Stripe"]
-  }
-];
+import { useQuery } from "@tanstack/react-query";
+import type { Project } from "@shared/schema";
 
 const services = [
   {
@@ -63,6 +44,12 @@ const testimonials = [
 ];
 
 export default function Home() {
+  const { data: projects = [] } = useQuery<Project[]>({
+    queryKey: ["/api/projects"],
+  });
+
+  const featuredProjects = projects.slice(0, 3);
+
   return (
     <div className="bg-[#0A0A0A]">
       <Hero />
@@ -140,8 +127,8 @@ export default function Home() {
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} {...project} />
+            {featuredProjects.map((project) => (
+              <ProjectCard key={project.id} {...project} />
             ))}
           </div>
         </div>
