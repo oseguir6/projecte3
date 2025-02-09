@@ -26,6 +26,15 @@ export const projects = pgTable("projects", {
   createdAt: timestamp("created_at").defaultNow()
 });
 
+export const technologies = pgTable("technologies", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  type: text("type").notNull(), // 'service' o 'stack'
+  icon: text("icon").notNull(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
 export const insertContactSchema = createInsertSchema(contacts).omit({
   id: true,
   createdAt: true
@@ -42,6 +51,15 @@ export const insertProjectSchema = createInsertSchema(projects).omit({
   image: z.string().url()
 });
 
+export const insertTechnologySchema = createInsertSchema(technologies).omit({
+  id: true,
+  createdAt: true
+}).extend({
+  type: z.enum(['service', 'stack']),
+  icon: z.string(),
+  description: z.string().optional()
+});
+
 export const loginSchema = z.object({
   username: z.string(),
   password: z.string()
@@ -53,3 +71,5 @@ export type Visit = typeof visits.$inferSelect;
 export type LoginCredentials = z.infer<typeof loginSchema>;
 export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type Project = typeof projects.$inferSelect;
+export type InsertTechnology = z.infer<typeof insertTechnologySchema>;
+export type Technology = typeof technologies.$inferSelect;

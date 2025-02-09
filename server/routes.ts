@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSchema, loginSchema, insertProjectSchema } from "@shared/schema";
+import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema } from "@shared/schema";
 import session from "express-session";
 
 declare module "express-session" {
@@ -64,7 +64,7 @@ export function registerRoutes(app: Express): Server {
     });
   });
 
-  // Project routes (protected)
+  // Project routes
   app.get("/api/projects", async (req: Request, res: Response) => {
     const projects = await storage.getProjects();
     res.json(projects);
@@ -111,6 +111,57 @@ export function registerRoutes(app: Express): Server {
         res.status(404).json({ message: "Project not found" });
       } else {
         res.status(500).json({ message: "Error deleting project" });
+      }
+    }
+  });
+
+  // Technology routes
+  app.get("/api/technologies", async (req: Request, res: Response) => {
+    const technologies = await storage.getTechnologies();
+    res.json(technologies);
+  });
+
+  app.get("/api/technologies/:id", async (req: Request, res: Response) => {
+    const technology = await storage.getTechnology(Number(req.params.id));
+    if (!technology) {
+      return res.status(404).json({ message: "Technology not found" });
+    }
+    res.json(technology);
+  });
+
+  app.post("/api/admin/technologies", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const technologyData = insertTechnologySchema.parse(req.body);
+      const technology = await storage.createTechnology(technologyData);
+      res.status(201).json(technology);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid technology data" });
+    }
+  });
+
+  app.put("/api/admin/technologies/:id", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const technologyData = insertTechnologySchema.parse(req.body);
+      const technology = await storage.updateTechnology(Number(req.params.id), technologyData);
+      res.json(technology);
+    } catch (error) {
+      if (error instanceof Error && error.message === "Technology not found") {
+        res.status(404).json({ message: "Technology not found" });
+      } else {
+        res.status(400).json({ message: "Invalid technology data" });
+      }
+    }
+  });
+
+  app.delete("/api/admin/technologies/:id", requireAuth, async (req: Request, res: Response) => {
+    try {
+      await storage.deleteTechnology(Number(req.params.id));
+      res.status(204).send();
+    } catch (error) {
+      if (error instanceof Error && error.message === "Technology not found") {
+        res.status(404).json({ message: "Technology not found" });
+      } else {
+        res.status(500).json({ message: "Error deleting technology" });
       }
     }
   });

@@ -6,6 +6,7 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import ProjectForm from "@/components/ProjectForm";
+import TechnologyForm from "@/components/TechnologyForm";
 import {
   Card,
   CardContent,
@@ -24,7 +25,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Terminal, Users, Eye } from "lucide-react";
-import type { Contact, Visit, Project } from "@shared/schema";
+import type { Contact, Visit, Project, Technology } from "@shared/schema";
 import { useState } from "react";
 
 export default function Admin() {
@@ -32,6 +33,8 @@ export default function Admin() {
   const { toast } = useToast();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isTechnologyModalOpen, setIsTechnologyModalOpen] = useState(false);
+  const [selectedTechnology, setSelectedTechnology] = useState<Technology | null>(null);
 
   const { data: contacts = [] } = useQuery<Contact[]>({
     queryKey: ["/api/admin/contacts"],
@@ -43,6 +46,10 @@ export default function Admin() {
 
   const { data: projects = [] } = useQuery<Project[]>({
     queryKey: ["/api/projects"],
+  });
+
+  const { data: technologies = [] } = useQuery<Technology[]>({
+    queryKey: ["/api/technologies"],
   });
 
   const createProjectMutation = useMutation({
@@ -109,6 +116,70 @@ export default function Admin() {
     },
   });
 
+  const createTechnologyMutation = useMutation({
+    mutationFn: async (data: any) => {
+      await apiRequest("POST", "/api/admin/technologies", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/technologies"] });
+      setIsTechnologyModalOpen(false);
+      setSelectedTechnology(null);
+      toast({
+        title: "Success",
+        description: "Technology created successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create technology",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateTechnologyMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      await apiRequest("PUT", `/api/admin/technologies/${id}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/technologies"] });
+      setIsTechnologyModalOpen(false);
+      setSelectedTechnology(null);
+      toast({
+        title: "Success",
+        description: "Technology updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update technology",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteTechnologyMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest("DELETE", `/api/admin/technologies/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/technologies"] });
+      toast({
+        title: "Success",
+        description: "Technology deleted successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete technology",
+        variant: "destructive",
+      });
+    },
+  });
+
   const logoutMutation = useMutation({
     mutationFn: async () => {
       await apiRequest("POST", "/api/logout");
@@ -128,6 +199,14 @@ export default function Admin() {
       updateProjectMutation.mutate({ id: selectedProject.id, data });
     } else {
       createProjectMutation.mutate(data);
+    }
+  };
+
+  const handleTechnologySubmit = (data: any) => {
+    if (selectedTechnology) {
+      updateTechnologyMutation.mutate({ id: selectedTechnology.id, data });
+    } else {
+      createTechnologyMutation.mutate(data);
     }
   };
 
@@ -164,6 +243,27 @@ export default function Admin() {
             onCancel={() => {
               setIsProjectModalOpen(false);
               setSelectedProject(null);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isTechnologyModalOpen} onOpenChange={setIsTechnologyModalOpen}>
+        <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
+          <DialogHeader>
+            <DialogTitle className="text-white">
+              {selectedTechnology ? 'Edit Technology' : 'Create New Technology'}
+            </DialogTitle>
+            <DialogDescription>
+              Add or update technology details below
+            </DialogDescription>
+          </DialogHeader>
+          <TechnologyForm
+            initialData={selectedTechnology || undefined}
+            onSubmit={handleTechnologySubmit}
+            onCancel={() => {
+              setIsTechnologyModalOpen(false);
+              setSelectedTechnology(null);
             }}
           />
         </DialogContent>
@@ -226,8 +326,9 @@ export default function Admin() {
           </div>
 
           <Tabs defaultValue="projects" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 max-w-[600px]">
+            <TabsList className="grid w-full grid-cols-4 max-w-[800px]">
               <TabsTrigger value="projects">Projects</TabsTrigger>
+              <TabsTrigger value="technologies">Technologies</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
               <TabsTrigger value="messages">Messages</TabsTrigger>
             </TabsList>
@@ -310,6 +411,84 @@ export default function Admin() {
                               alt={project.title}
                               className="w-full h-full object-cover"
                             />
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="technologies">
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <CardTitle className="text-white">Technologies Management</CardTitle>
+                      <CardDescription>
+                        Manage your services and tech stack
+                      </CardDescription>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        setSelectedTechnology(null);
+                        setIsTechnologyModalOpen(true);
+                      }}
+                      className="bg-[#E94560] hover:bg-[#E94560]/90"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Technology
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[600px] pr-4">
+                    <div className="space-y-4">
+                      {technologies.map((tech) => (
+                        <motion.div
+                          key={tech.id}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3">
+                                <div className="text-[#E94560]" dangerouslySetInnerHTML={{ __html: tech.icon }} />
+                                <h3 className="text-lg font-semibold text-white">
+                                  {tech.name}
+                                </h3>
+                              </div>
+                              <span className="inline-block px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full mt-2">
+                                {tech.type}
+                              </span>
+                              {tech.description && (
+                                <p className="text-white/70 mt-2">
+                                  {tech.description}
+                                </p>
+                              )}
+                            </div>
+                            <div className="flex gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => {
+                                  setSelectedTechnology(tech);
+                                  setIsTechnologyModalOpen(true);
+                                }}
+                                className="border-[#E94560] hover:bg-[#E94560]/10"
+                              >
+                                <Pencil className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="destructive"
+                                size="icon"
+                                onClick={() => deleteTechnologyMutation.mutate(tech.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </div>
                         </motion.div>
                       ))}

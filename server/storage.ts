@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject } from "@shared/schema";
+import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject, type Technology, type InsertTechnology } from "@shared/schema";
 import fs from "fs";
 import path from "path";
 
@@ -12,6 +12,7 @@ const DATA_DIR = path.join(process.cwd(), "data");
 const CONTACTS_FILE = path.join(DATA_DIR, "contacts.json");
 const VISITS_FILE = path.join(DATA_DIR, "visits.json");
 const PROJECTS_FILE = path.join(DATA_DIR, "projects.json");
+const TECHNOLOGIES_FILE = path.join(DATA_DIR, "technologies.json");
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
@@ -28,24 +29,33 @@ export interface IStorage {
   deleteProject(id: number): Promise<void>;
   getProjects(): Promise<Project[]>;
   getProject(id: number): Promise<Project | null>;
+  createTechnology(technology: InsertTechnology): Promise<Technology>;
+  updateTechnology(id: number, technology: InsertTechnology): Promise<Technology>;
+  deleteTechnology(id: number): Promise<void>;
+  getTechnologies(): Promise<Technology[]>;
+  getTechnology(id: number): Promise<Technology | null>;
 }
 
 export class MemStorage implements IStorage {
   private contacts: Map<number, Contact>;
   private visits: Map<number, Visit>;
   private projects: Map<number, Project>;
+  private technologies: Map<number, Technology>;
   private currentContactId: number;
   private currentVisitId: number;
   private currentProjectId: number;
+  private currentTechnologyId: number;
 
   constructor() {
     this.contacts = new Map();
     this.visits = new Map();
     this.projects = new Map();
+    this.technologies = new Map();
     this.loadData();
     this.currentContactId = Math.max(1, ...Array.from(this.contacts.keys()), 0) + 1;
     this.currentVisitId = Math.max(1, ...Array.from(this.visits.keys()), 0) + 1;
     this.currentProjectId = Math.max(1, ...Array.from(this.projects.keys()), 0) + 1;
+    this.currentTechnologyId = Math.max(1, ...Array.from(this.technologies.keys()), 0) + 1;
   }
 
   private loadData() {
@@ -73,6 +83,14 @@ export class MemStorage implements IStorage {
           this.projects.set(project.id, project);
         });
       }
+
+      if (fs.existsSync(TECHNOLOGIES_FILE)) {
+        const technologiesData = JSON.parse(fs.readFileSync(TECHNOLOGIES_FILE, 'utf-8'));
+        technologiesData.forEach((technology: Technology) => {
+          technology.createdAt = new Date(technology.createdAt!);
+          this.technologies.set(technology.id, technology);
+        });
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -91,6 +109,10 @@ export class MemStorage implements IStorage {
       fs.writeFileSync(
         PROJECTS_FILE,
         JSON.stringify(Array.from(this.projects.values()), null, 2)
+      );
+      fs.writeFileSync(
+        TECHNOLOGIES_FILE,
+        JSON.stringify(Array.from(this.technologies.values()), null, 2)
       );
     } catch (error) {
       console.error('Error saving data:', error);
@@ -179,6 +201,51 @@ export class MemStorage implements IStorage {
 
   async getProject(id: number): Promise<Project | null> {
     return this.projects.get(id) || null;
+  }
+
+  async createTechnology(technology: InsertTechnology): Promise<Technology> {
+    const id = this.currentTechnologyId++;
+    const newTechnology: Technology = {
+      ...technology,
+      id,
+      createdAt: new Date()
+    };
+    this.technologies.set(id, newTechnology);
+    this.saveData();
+    return newTechnology;
+  }
+
+  async updateTechnology(id: number, technology: InsertTechnology): Promise<Technology> {
+    const existingTechnology = this.technologies.get(id);
+    if (!existingTechnology) {
+      throw new Error('Technology not found');
+    }
+
+    const updatedTechnology: Technology = {
+      ...technology,
+      id,
+      createdAt: existingTechnology.createdAt
+    };
+    this.technologies.set(id, updatedTechnology);
+    this.saveData();
+    return updatedTechnology;
+  }
+
+  async deleteTechnology(id: number): Promise<void> {
+    if (!this.technologies.has(id)) {
+      throw new Error('Technology not found');
+    }
+    this.technologies.delete(id);
+    this.saveData();
+  }
+
+  async getTechnologies(): Promise<Technology[]> {
+    return Array.from(this.technologies.values())
+      .sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
+  }
+
+  async getTechnology(id: number): Promise<Technology | null> {
+    return this.technologies.get(id) || null;
   }
 }
 
