@@ -8,21 +8,14 @@ import type { SiteContent } from "@shared/schema";
 export default function AboutForm() {
   const { data: content = [], isLoading } = useQuery<SiteContent[]>({
     queryKey: ["/api/site-content"],
-    select: (data) => data.filter((item) => item.key.startsWith("about.")),
   });
+
+  const aboutContent = content.filter((item) => item.key.startsWith("about."));
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8">
         <Loader2 className="h-8 w-8 animate-spin text-white" />
-      </div>
-    );
-  }
-
-  if (!content.length) {
-    return (
-      <div className="text-center text-white/70 p-8">
-        No about content found. Please add content first.
       </div>
     );
   }
@@ -37,7 +30,7 @@ export default function AboutForm() {
   return (
     <ScrollArea className="h-[600px] pr-4">
       <div className="space-y-6">
-        {content.map((item) => (
+        {aboutContent.map((item) => (
           <motion.div
             key={item.key}
             className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
