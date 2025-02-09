@@ -555,14 +555,6 @@ export default function Admin() {
                                 {tech.name}
                               </h3>
                             </div>
-                            <span className="inline-block px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full mt-2">
-                              {tech.type}
-                            </span>
-                            {tech.description && (
-                              <p className="text-white/70 mt-2">
-                                {tech.description}
-                              </p>
-                            )}
                           </div>
                           <div className="flex gap-2">
                             <Button
