@@ -82,5 +82,11 @@
     "key": "about.title",
     "value": "Oriol",
     "createdAt": "2025-02-09T13:37:01.324Z"
+  },
+  {
+    "id": null,
+    "key": "about.experience",
+    "value": "<h2>prueba</h2><ul><li>a</li></ul>",
+    "createdAt": "2025-02-09T14:16:45.497Z"
   }
 ]

@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
+import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
 import Home from "@/pages/Home";
@@ -34,6 +35,13 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <Helmet>
+          <title>Portfolio Oriol</title>
+          <meta name="description" content="Curriculum web By Oriol" />
+          <meta property="og:title" content="Portfolio Oriol" />
+          <meta property="og:description" content="Curriculum web By Oriol" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </Helmet>
         <CustomCursor />
         <Navigation />
         <Router />
