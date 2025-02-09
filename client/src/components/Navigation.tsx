@@ -100,6 +100,9 @@ export default function Navigation() {
           </ul>
         </motion.div>
       </div>
+      <div className="text-center py-2 text-white/50 text-sm border-t border-[#16213E]">
+        By Oriol Seguí
+      </div>
     </nav>
   );
 }
