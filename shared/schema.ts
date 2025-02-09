@@ -29,9 +29,7 @@ export const projects = pgTable("projects", {
 export const technologies = pgTable("technologies", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
-  type: text("type").notNull(), // 'service' o 'stack'
   icon: text("icon").notNull(),
-  description: text("description"),
   createdAt: timestamp("created_at").defaultNow()
 });
 
@@ -55,9 +53,7 @@ export const insertTechnologySchema = createInsertSchema(technologies).omit({
   id: true,
   createdAt: true
 }).extend({
-  type: z.enum(['service', 'stack']),
-  icon: z.string(),
-  description: z.string().optional()
+  icon: z.string()
 });
 
 export const loginSchema = z.object({

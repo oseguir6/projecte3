@@ -11,21 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface TechnologyFormProps {
   initialData?: {
     name: string;
-    type: 'service' | 'stack';
     icon: string;
-    description?: string;
   };
   onSubmit: (data: any) => void;
   onCancel: () => void;
@@ -36,9 +26,7 @@ export default function TechnologyForm({ initialData, onSubmit, onCancel }: Tech
     resolver: zodResolver(insertTechnologySchema),
     defaultValues: initialData || {
       name: "",
-      type: "stack",
-      icon: "",
-      description: ""
+      icon: ""
     }
   });
 
@@ -64,56 +52,15 @@ export default function TechnologyForm({ initialData, onSubmit, onCancel }: Tech
 
         <FormField
           control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-white">Type</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="bg-[#1A1A2E] border-[#16213E] text-white">
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-[#1A1A2E] border-[#16213E]">
-                  <SelectItem value="service" className="text-white">Service</SelectItem>
-                  <SelectItem value="stack" className="text-white">Stack</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="icon"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Icon (SVG or Icon Name)</FormLabel>
+              <FormLabel className="text-white">Icon (SVG)</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   className="bg-[#1A1A2E] border-[#16213E] text-white"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-white">Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  {...field}
-                  className="bg-[#1A1A2E] border-[#16213E] text-white min-h-[100px]"
+                  placeholder="Paste SVG icon code here"
                 />
               </FormControl>
               <FormMessage />
@@ -126,7 +73,7 @@ export default function TechnologyForm({ initialData, onSubmit, onCancel }: Tech
             type="submit"
             className="bg-[#E94560] hover:bg-[#E94560]/90"
           >
-            {initialData ? 'Update Technology' : 'Create Technology'}
+            {initialData ? 'Update Technology' : 'Add Technology'}
           </Button>
           <Button
             type="button"
