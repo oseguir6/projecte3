@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema, insertSiteContentSchema } from "@shared/schema";
+import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema, insertSiteContentSchema, insertBlogSchema } from "@shared/schema";
 import session from "express-session";
 
 declare module "express-session" {
@@ -176,6 +176,54 @@ export function registerRoutes(app: Express): Server {
     const visits = await storage.getVisits();
     res.json(visits);
   });
+
+  // Blog routes
+  app.get("/api/blogs", async (req: Request, res: Response) => {
+    try {
+      const blogs = await storage.getBlogs();
+      res.json(blogs);
+    } catch (error) {
+      res.status(500).json({ message: "Error getting blogs" });
+    }
+  });
+
+  app.post("/api/admin/blogs", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const blogData = insertBlogSchema.parse(req.body);
+      const blog = await storage.createBlog(blogData);
+      res.status(201).json(blog);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid blog data" });
+    }
+  });
+
+  app.put("/api/admin/blogs/:id", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const blogData = insertBlogSchema.parse(req.body);
+      const blog = await storage.updateBlog(Number(req.params.id), blogData);
+      res.json(blog);
+    } catch (error) {
+      if (error instanceof Error && error.message === "Blog not found") {
+        res.status(404).json({ message: "Blog not found" });
+      } else {
+        res.status(400).json({ message: "Invalid blog data" });
+      }
+    }
+  });
+
+  app.delete("/api/admin/blogs/:id", requireAuth, async (req: Request, res: Response) => {
+    try {
+      await storage.deleteBlog(Number(req.params.id));
+      res.status(204).send();
+    } catch (error) {
+      if (error instanceof Error && error.message === "Blog not found") {
+        res.status(404).json({ message: "Blog not found" });
+      } else {
+        res.status(500).json({ message: "Error deleting blog" });
+      }
+    }
+  });
+
 
   // Contact form route
   app.post("/api/contact", async (req: Request, res: Response) => {

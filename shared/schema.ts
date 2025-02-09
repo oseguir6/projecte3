@@ -104,3 +104,19 @@ export type InsertSiteContent = z.infer<typeof insertSiteContentSchema>;
 export type SiteContent = typeof siteContent.$inferSelect;
 export type InsertBlog = z.infer<typeof insertBlogSchema>;
 export type Blog = typeof blogs.$inferSelect;
+
+export const defaultSiteContent = [
+  { key: "hero.terminal.text", value: "dev@portfolio:~$" },
+  { key: "hero.title", value: "Hola, soy Dev" },
+  { key: "hero.subtitle", value: "Desarrollador Full Stack" },
+  { key: "hero.description", value: "Me especializo en crear experiencias web únicas y funcionales." },
+  { key: "hero.button.projects", value: "View Projects" },
+  { key: "hero.button.contact", value: "Contact Me" },
+  { key: "technologies.title", value: "Technologies" },
+  { key: "technologies.subtitle", value: "Tech Stack" },
+  { key: "technologies.description", value: "Here are some of the technologies I work with:" },
+  { key: "projects.title", value: "Featured Projects" },
+  { key: "projects.subtitle", value: "Recent Work" },
+  { key: "blog.title", value: "Latest Blog Posts" },
+  { key: "blog.subtitle", value: "Insights & Tutorials" }
+];

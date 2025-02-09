@@ -8,6 +8,16 @@ export default function BlogSection() {
     queryKey: ["/api/blogs"],
   });
 
+  const { data: blogTitle = "Latest Blog Posts" } = useQuery({
+    queryKey: ["/api/site-content/blog.title"],
+    select: (data: any) => data.value,
+  });
+
+  const { data: blogSubtitle = "Insights & Tutorials" } = useQuery({
+    queryKey: ["/api/site-content/blog.subtitle"],
+    select: (data: any) => data.value,
+  });
+
   const publishedBlogs = blogs.filter(blog => blog.published);
 
   return (
@@ -20,7 +30,7 @@ export default function BlogSection() {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-white mb-4"
           >
-            Latest Blog Posts
+            {blogTitle}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -28,7 +38,7 @@ export default function BlogSection() {
             viewport={{ once: true }}
             className="text-white/70 max-w-2xl mx-auto"
           >
-            Insights, tutorials, and thoughts on web development and technology
+            {blogSubtitle}
           </motion.p>
         </div>
 

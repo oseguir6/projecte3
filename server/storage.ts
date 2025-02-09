@@ -14,6 +14,7 @@ const VISITS_FILE = path.join(DATA_DIR, "visits.json");
 const PROJECTS_FILE = path.join(DATA_DIR, "projects.json");
 const TECHNOLOGIES_FILE = path.join(DATA_DIR, "technologies.json");
 const SITE_CONTENT_FILE = path.join(DATA_DIR, "site_content.json");
+const BLOGS_FILE = path.join(DATA_DIR, "blogs.json");
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
@@ -35,6 +36,25 @@ const DEFAULT_SITE_CONTENT = {
   "contact.description": "¿Tienes un proyecto en mente? ¡Hablemos!"
 };
 
+// Added Blog interface
+export interface IBlog {
+    id: number;
+    title: string;
+    content: string;
+    image: string;
+    tags: string[];
+    published: boolean;
+    createdAt: Date;
+}
+
+export interface InsertBlog {
+    title: string;
+    content: string;
+    image: string;
+    tags: string[];
+    published: boolean;
+}
+
 export interface IStorage {
   createContact(contact: InsertContact): Promise<Contact>;
   getContacts(): Promise<Contact[]>;
@@ -55,6 +75,12 @@ export interface IStorage {
   getSiteContent(key: string): Promise<string>;
   updateSiteContent(key: string, value: string): Promise<SiteContent>;
   getAllSiteContent(): Promise<SiteContent[]>;
+  // Blog operations
+  createBlog(blog: InsertBlog): Promise<IBlog>;
+  updateBlog(id: number, blog: InsertBlog): Promise<IBlog>;
+  deleteBlog(id: number): Promise<void>;
+  getBlogs(): Promise<IBlog[]>;
+  getBlog(id: number): Promise<IBlog | null>;
 }
 
 export class MemStorage implements IStorage {
@@ -63,11 +89,13 @@ export class MemStorage implements IStorage {
   private projects: Map<number, Project>;
   private technologies: Map<number, Technology>;
   private siteContent: Map<string, SiteContent>;
+  private blogs: Map<number, IBlog>;
   private currentContactId: number;
   private currentVisitId: number;
   private currentProjectId: number;
   private currentTechnologyId: number;
   private currentSiteContentId: number;
+  private currentBlogId: number;
 
   constructor() {
     this.contacts = new Map();
@@ -75,12 +103,14 @@ export class MemStorage implements IStorage {
     this.projects = new Map();
     this.technologies = new Map();
     this.siteContent = new Map();
+    this.blogs = new Map();
     this.loadData();
     this.currentContactId = Math.max(1, ...Array.from(this.contacts.keys()), 0) + 1;
     this.currentVisitId = Math.max(1, ...Array.from(this.visits.keys()), 0) + 1;
     this.currentProjectId = Math.max(1, ...Array.from(this.projects.keys()), 0) + 1;
     this.currentTechnologyId = Math.max(1, ...Array.from(this.technologies.keys()), 0) + 1;
     this.currentSiteContentId = Math.max(1, ...Array.from(this.siteContent.keys()).map(Number), 0) + 1;
+    this.currentBlogId = Math.max(1, ...Array.from(this.blogs.keys()), 0) + 1;
   }
 
   private loadData() {
@@ -136,6 +166,13 @@ export class MemStorage implements IStorage {
         });
         this.saveData();
       }
+      if (fs.existsSync(BLOGS_FILE)) {
+        const blogsData = JSON.parse(fs.readFileSync(BLOGS_FILE, 'utf-8'));
+        blogsData.forEach((blog: IBlog) => {
+          blog.createdAt = new Date(blog.createdAt!);
+          this.blogs.set(blog.id, blog);
+        });
+      }
     } catch (error) {
       console.error('Error loading data:', error);
       // If there's an error, initialize with default content
@@ -175,6 +212,10 @@ export class MemStorage implements IStorage {
       fs.writeFileSync(
         SITE_CONTENT_FILE,
         JSON.stringify(Array.from(this.siteContent.values()), null, 2)
+      );
+      fs.writeFileSync(
+        BLOGS_FILE,
+        JSON.stringify(Array.from(this.blogs.values()), null, 2)
       );
     } catch (error) {
       console.error('Error saving data:', error);
@@ -352,6 +393,51 @@ export class MemStorage implements IStorage {
       }
     });
     return Array.from(this.siteContent.values());
+  }
+
+  async createBlog(blog: InsertBlog): Promise<IBlog> {
+    const id = this.currentBlogId++;
+    const newBlog: IBlog = {
+      ...blog,
+      id,
+      createdAt: new Date()
+    };
+    this.blogs.set(id, newBlog);
+    this.saveData();
+    return newBlog;
+  }
+
+  async updateBlog(id: number, blog: InsertBlog): Promise<IBlog> {
+    const existingBlog = this.blogs.get(id);
+    if (!existingBlog) {
+      throw new Error('Blog not found');
+    }
+
+    const updatedBlog: IBlog = {
+      ...blog,
+      id,
+      createdAt: existingBlog.createdAt
+    };
+    this.blogs.set(id, updatedBlog);
+    this.saveData();
+    return updatedBlog;
+  }
+
+  async deleteBlog(id: number): Promise<void> {
+    if (!this.blogs.has(id)) {
+      throw new Error('Blog not found');
+    }
+    this.blogs.delete(id);
+    this.saveData();
+  }
+
+  async getBlogs(): Promise<IBlog[]> {
+    return Array.from(this.blogs.values())
+      .sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
+  }
+
+  async getBlog(id: number): Promise<IBlog | null> {
+    return this.blogs.get(id) || null;
   }
 }
 
