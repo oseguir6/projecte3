@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Terminal, Users, Eye } from "lucide-react";
 import type { Contact, Visit } from "@shared/schema";
 
 export default function Admin() {
@@ -41,17 +43,35 @@ export default function Admin() {
     },
   });
 
+  // Process visits data for the chart
+  const visitsByPage = visits.reduce((acc: { [key: string]: number }, visit) => {
+    acc[visit.page] = (acc[visit.page] || 0) + 1;
+    return acc;
+  }, {});
+
+  const chartData = Object.entries(visitsByPage).map(([page, count]) => ({
+    page,
+    visits: count,
+  }));
+
+  const totalVisits = visits.length;
+  const uniquePages = Object.keys(visitsByPage).length;
+  const totalContacts = contacts.length;
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] pt-20">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <motion.h1
-            className="text-3xl font-bold text-white"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            Admin Dashboard
-          </motion.h1>
+          <div className="flex items-center gap-3">
+            <Terminal className="h-8 w-8 text-[#E94560]" />
+            <motion.h1
+              className="text-3xl font-bold text-white"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              System Dashboard
+            </motion.h1>
+          </div>
           <Button
             variant="destructive"
             onClick={() => logoutMutation.mutate()}
@@ -61,40 +81,89 @@ export default function Admin() {
           </Button>
         </div>
 
-        <Tabs defaultValue="contacts" className="w-full">
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-[#1A1A2E] border-[#16213E]">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-white text-lg font-medium">Total Visits</CardTitle>
+              <Eye className="h-4 w-4 text-[#E94560]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{totalVisits}</div>
+              <p className="text-xs text-white/60">Across all pages</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-[#1A1A2E] border-[#16213E]">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-white text-lg font-medium">Unique Pages</CardTitle>
+              <Terminal className="h-4 w-4 text-[#E94560]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{uniquePages}</div>
+              <p className="text-xs text-white/60">Different pages visited</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-[#1A1A2E] border-[#16213E]">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-white text-lg font-medium">Messages</CardTitle>
+              <Users className="h-4 w-4 text-[#E94560]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-white">{totalContacts}</div>
+              <p className="text-xs text-white/60">Contact form submissions</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Tabs defaultValue="analytics" className="w-full">
           <TabsList className="grid w-full grid-cols-2 max-w-[400px]">
-            <TabsTrigger value="contacts">Contact Messages</TabsTrigger>
-            <TabsTrigger value="visits">Page Visits</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="messages">Messages</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="contacts">
+          <TabsContent value="analytics">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
-                <CardTitle className="text-white">Contact Messages</CardTitle>
+                <CardTitle className="text-white">Page Visits Analytics</CardTitle>
                 <CardDescription>
-                  View all contact form submissions
+                  Visual representation of page visits
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-[600px] rounded-md border border-[#16213E] p-4">
-                  <div className="space-y-4">
-                    {contacts.map((contact) => (
+                <div className="h-[400px] mt-4">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData}>
+                      <XAxis 
+                        dataKey="page" 
+                        stroke="#ffffff60"
+                        fontSize={12}
+                        tickFormatter={(value) => value.replace('/', '')}
+                      />
+                      <YAxis stroke="#ffffff60" fontSize={12} />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: '#1A1A2E',
+                          border: '1px solid #16213E',
+                          borderRadius: '4px',
+                          color: '#fff'
+                        }}
+                      />
+                      <Bar dataKey="visits" fill="#E94560" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <ScrollArea className="h-[200px] mt-6 rounded-md border border-[#16213E] p-4">
+                  <div className="space-y-2">
+                    {chartData.map(({ page, visits }) => (
                       <motion.div
-                        key={contact.id}
-                        className="bg-[#0A0A0A] p-4 rounded-lg"
+                        key={page}
+                        className="bg-[#0A0A0A] p-3 rounded-lg flex justify-between items-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="text-lg font-semibold text-white">
-                            {contact.name}
-                          </h3>
-                          <span className="text-sm text-white/60">
-                            {new Date(contact.createdAt).toLocaleString()}
-                          </span>
-                        </div>
-                        <p className="text-white/80 mb-2">{contact.email}</p>
-                        <p className="text-white/70">{contact.message}</p>
+                        <code className="text-[#E94560]">{page}</code>
+                        <span className="text-white/60">{visits} visits</span>
                       </motion.div>
                     ))}
                   </div>
@@ -103,28 +172,36 @@ export default function Admin() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="visits">
+          <TabsContent value="messages">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
-                <CardTitle className="text-white">Page Visits</CardTitle>
+                <CardTitle className="text-white">Contact Messages</CardTitle>
                 <CardDescription>
-                  Track website traffic and page visits
+                  Recent contact form submissions
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[600px] rounded-md border border-[#16213E] p-4">
-                  <div className="space-y-2">
-                    {visits.map((visit) => (
+                  <div className="space-y-4">
+                    {contacts.map((contact) => (
                       <motion.div
-                        key={visit.id}
-                        className="bg-[#0A0A0A] p-3 rounded-lg flex justify-between items-center"
+                        key={contact.id}
+                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <span className="text-white">{visit.page}</span>
-                        <span className="text-white/60">
-                          {new Date(visit.timestamp).toLocaleString()}
-                        </span>
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-lg font-semibold text-white">
+                            {contact.name}
+                          </h3>
+                          <span className="text-sm text-[#E94560]">
+                            {new Date(contact.createdAt!).toLocaleString()}
+                          </span>
+                        </div>
+                        <code className="text-white/80 block mb-2">{contact.email}</code>
+                        <p className="text-white/70 bg-[#1A1A2E] p-3 rounded">
+                          {contact.message}
+                        </p>
                       </motion.div>
                     ))}
                   </div>
