@@ -64,7 +64,6 @@ export default function Admin() {
     queryKey: ["/api/site-content"],
   });
 
-  const aboutContent = siteContent.filter((item) => item.key.startsWith("about."));
 
   const createProjectMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -385,9 +384,8 @@ export default function Admin() {
           </Card>
         </div>
 
-        <Tabs defaultValue="about" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 max-w-[1000px]">
-            <TabsTrigger value="about">About</TabsTrigger>
+        <Tabs defaultValue="projects" className="w-full">
+          <TabsList className="grid w-full grid-cols-6 max-w-[1000px]">
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="technologies">Technologies</TabsTrigger>
             <TabsTrigger value="blogs">Blogs</TabsTrigger>
@@ -396,39 +394,6 @@ export default function Admin() {
             <TabsTrigger value="messages">Messages</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="about">
-            <Card className="bg-[#1A1A2E] border-[#16213E]">
-              <CardHeader>
-                <CardTitle className="text-white">About Page Content</CardTitle>
-                <CardDescription>
-                  Edit your about page content
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[600px] pr-4">
-                  <div className="space-y-6">
-                    {aboutContent.map((content) => (
-                      <motion.div
-                        key={content.key}
-                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                      >
-                        <SiteContentForm
-                          contentKey={content.key}
-                          initialValue={content.value}
-                          isLongText={content.key.includes("description")}
-                          onSubmit={({ value }) =>
-                            updateSiteContentMutation.mutate({ key: content.key, value })
-                          }
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
-          </TabsContent>
           <TabsContent value="projects">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
