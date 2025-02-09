@@ -57,7 +57,7 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="text-4xl font-bold text-white text-center mb-8">
-            Get in Touch
+            Contáctame
           </h1>
           
           <Form {...form}>
@@ -70,7 +70,7 @@ export default function Contact() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Name</FormLabel>
+                    <FormLabel className="text-white">Nombre</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -87,7 +87,7 @@ export default function Contact() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Email</FormLabel>
+                    <FormLabel className="text-white">Correo</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -105,7 +105,7 @@ export default function Contact() {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-white">Message</FormLabel>
+                    <FormLabel className="text-white">Mensaje</FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
@@ -122,7 +122,7 @@ export default function Contact() {
                 className="w-full bg-[#E94560] hover:bg-[#E94560]/90"
                 disabled={mutation.isPending}
               >
-                {mutation.isPending ? "Sending..." : "Send Message"}
+                {mutation.isPending ? "Enviando..." : "Enviar Mensaje"}
               </Button>
             </form>
           </Form>
