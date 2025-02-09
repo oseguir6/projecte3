@@ -23,7 +23,10 @@ const DEFAULT_SITE_CONTENT = {
   "hero.title": "Hola, soy Dev",
   "hero.subtitle": "Desarrollador Full Stack",
   "hero.description": "Me especializo en crear aplicaciones web modernas y escalables",
+  "hero.button.projects": "View Projects",
+  "hero.button.contact": "Contact Me",
   "technologies.title": "Tecnologías con las que trabajo",
+  "technologies.subtitle": "Tech Stack",
   "projects.title": "Proyectos Destacados",
   "projects.subtitle": "Algunos de mis trabajos más recientes",
   "contact.title": "Contacto",
@@ -164,16 +167,16 @@ export class MemStorage implements IStorage {
   }
 
   async validateCredentials(credentials: LoginCredentials): Promise<boolean> {
-    return credentials.username === ADMIN_CREDENTIALS.username && 
+    return credentials.username === ADMIN_CREDENTIALS.username &&
            credentials.password === ADMIN_CREDENTIALS.password;
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
     const id = this.currentContactId++;
-    const contact: Contact = { 
-      ...insertContact, 
-      id, 
-      createdAt: new Date() 
+    const contact: Contact = {
+      ...insertContact,
+      id,
+      createdAt: new Date()
     };
     this.contacts.set(id, contact);
     this.saveData();

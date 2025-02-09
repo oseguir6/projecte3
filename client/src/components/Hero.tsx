@@ -5,17 +5,32 @@ import { useQuery } from "@tanstack/react-query";
 export default function Hero() {
   const { data: heroTitle = "Hola, soy Dev" } = useQuery({
     queryKey: ["/api/site-content/hero.title"],
-    select: (data) => data.value,
+    select: (data: any) => data.value,
   });
 
   const { data: heroSubtitle = "Desarrollador Full Stack" } = useQuery({
     queryKey: ["/api/site-content/hero.subtitle"],
-    select: (data) => data.value,
+    select: (data: any) => data.value,
   });
 
   const { data: heroDescription = "Me especializo en crear aplicaciones web modernas y escalables" } = useQuery({
     queryKey: ["/api/site-content/hero.description"],
-    select: (data) => data.value,
+    select: (data: any) => data.value,
+  });
+
+  const { data: buttonProjects = "View Projects" } = useQuery({
+    queryKey: ["/api/site-content/hero.button.projects"],
+    select: (data: any) => data.value,
+  });
+
+  const { data: buttonContact = "Contact Me" } = useQuery({
+    queryKey: ["/api/site-content/hero.button.contact"],
+    select: (data: any) => data.value,
+  });
+
+  const { data: techStackTitle = "Tech Stack" } = useQuery({
+    queryKey: ["/api/site-content/technologies.subtitle"],
+    select: (data: any) => data.value,
   });
 
   return (
@@ -86,14 +101,14 @@ export default function Hero() {
               className="bg-[#E94560] text-white px-8 py-3 rounded-md inline-flex items-center gap-2 hover:bg-[#E94560]/90 transition-colors"
             >
               <Code2 className="w-5 h-5" />
-              View Projects
+              {buttonProjects}
             </a>
             <a 
               href="/contact"
               className="border border-[#E94560] text-white px-8 py-3 rounded-md inline-flex items-center gap-2 hover:bg-[#E94560]/10 transition-colors"
             >
               <Globe className="w-5 h-5" />
-              Contact Me
+              {buttonContact}
             </a>
           </motion.div>
 
@@ -104,7 +119,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            <div className="text-white/40 text-sm">Tech Stack</div>
+            <div className="text-white/40 text-sm">{techStackTitle}</div>
             <div className="h-px flex-1 bg-gradient-to-r from-[#E94560]/50 to-transparent" />
           </motion.div>
 
