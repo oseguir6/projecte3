@@ -1,13 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
+
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
-import SiteContentForm from "./SiteContentForm";
 import { Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { SiteContent } from "@shared/schema";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
 
 export default function AboutForm() {
+  const { toast } = useToast();
+  
   const { data: siteContent = [], isLoading } = useQuery<SiteContent[]>({
     queryKey: ["/api/site-content"],
+  });
+
+  const updateContentMutation = useMutation({
+    mutationFn: async ({ key, value }: { key: string; value: string }) => {
+      const response = await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
+      if (!response.ok) {
+        throw new Error('Failed to update content');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });
+      toast({
+        title: "Success",
+        description: "Content updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update content",
+        variant: "destructive",
+      });
+    },
   });
 
   const aboutContent = siteContent.filter((item) => item.key.startsWith("about."));
@@ -42,15 +73,39 @@ export default function AboutForm() {
                 {fieldLabels[item.key] || item.key}
               </h3>
             </div>
-            <SiteContentForm
-              contentKey={item.key}
-              initialValue={item.value}
-              isLongText={item.key.includes("description")}
-              onSubmit={({ value }) => {
-                // La mutación ya está manejada dentro de SiteContentForm
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const value = formData.get("value") as string;
+                updateContentMutation.mutate({ key: item.key, value });
               }}
-              onCancel={() => {}}
-            />
+              className="space-y-2"
+            >
+              {item.key.includes("description") ? (
+                <Textarea
+                  name="value"
+                  defaultValue={item.value}
+                  className="min-h-[100px]"
+                />
+              ) : (
+                <Input
+                  name="value"
+                  defaultValue={item.value}
+                />
+              )}
+              <Button 
+                type="submit"
+                disabled={updateContentMutation.isPending}
+                className="w-full"
+              >
+                {updateContentMutation.isPending ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Save Changes"
+                )}
+              </Button>
+            </form>
           </motion.div>
         ))}
       </div>
