@@ -22808,5 +22808,1255 @@
     "id": 4563,
     "page": "/src/components/ui/label.tsx",
     "timestamp": "2025-02-09T20:33:56.735Z"
+  },
+  {
+    "id": 4564,
+    "page": "/",
+    "timestamp": "2025-02-09T20:34:11.383Z"
+  },
+  {
+    "id": 4565,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:34:11.575Z"
+  },
+  {
+    "id": 4566,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:34:11.584Z"
+  },
+  {
+    "id": 4567,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:34:12.584Z"
+  },
+  {
+    "id": 4568,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:34:12.744Z"
+  },
+  {
+    "id": 4569,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:34:12.817Z"
+  },
+  {
+    "id": 4570,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:34:18.033Z"
+  },
+  {
+    "id": 4571,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:34:29.463Z"
+  },
+  {
+    "id": 4572,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:34:29.474Z"
+  },
+  {
+    "id": 4573,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:34:29.500Z"
+  },
+  {
+    "id": 4574,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:34:29.562Z"
+  },
+  {
+    "id": 4575,
+    "page": "/",
+    "timestamp": "2025-02-09T20:34:31.064Z"
+  },
+  {
+    "id": 4576,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:34:31.257Z"
+  },
+  {
+    "id": 4577,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:34:31.270Z"
+  },
+  {
+    "id": 4578,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:34:32.242Z"
+  },
+  {
+    "id": 4579,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:34:32.261Z"
+  },
+  {
+    "id": 4580,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:34:32.303Z"
+  },
+  {
+    "id": 4581,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:34:32.329Z"
+  },
+  {
+    "id": 4582,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:34:32.603Z"
+  },
+  {
+    "id": 4583,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:34:32.616Z"
+  },
+  {
+    "id": 4584,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:34:32.626Z"
+  },
+  {
+    "id": 4585,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:34:32.644Z"
+  },
+  {
+    "id": 4586,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-02-09T20:34:32.774Z"
+  },
+  {
+    "id": 4587,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T20:34:32.785Z"
+  },
+  {
+    "id": 4588,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T20:34:32.933Z"
+  },
+  {
+    "id": 4589,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T20:34:32.944Z"
+  },
+  {
+    "id": 4590,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T20:34:32.961Z"
+  },
+  {
+    "id": 4591,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T20:34:32.975Z"
+  },
+  {
+    "id": 4592,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T20:34:33.008Z"
+  },
+  {
+    "id": 4593,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T20:34:33.060Z"
+  },
+  {
+    "id": 4594,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T20:34:33.092Z"
+  },
+  {
+    "id": 4595,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T20:34:33.128Z"
+  },
+  {
+    "id": 4596,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T20:34:33.175Z"
+  },
+  {
+    "id": 4597,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T20:34:33.196Z"
+  },
+  {
+    "id": 4598,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T20:34:33.267Z"
+  },
+  {
+    "id": 4599,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T20:34:33.300Z"
+  },
+  {
+    "id": 4600,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T20:34:33.327Z"
+  },
+  {
+    "id": 4601,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T20:34:33.345Z"
+  },
+  {
+    "id": 4602,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T20:34:33.414Z"
+  },
+  {
+    "id": 4603,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T20:34:33.424Z"
+  },
+  {
+    "id": 4604,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T20:34:33.436Z"
+  },
+  {
+    "id": 4605,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T20:34:33.461Z"
+  },
+  {
+    "id": 4606,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T20:34:33.483Z"
+  },
+  {
+    "id": 4607,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T20:34:33.503Z"
+  },
+  {
+    "id": 4608,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T20:34:33.567Z"
+  },
+  {
+    "id": 4609,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T20:34:33.581Z"
+  },
+  {
+    "id": 4610,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T20:34:33.591Z"
+  },
+  {
+    "id": 4611,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T20:34:33.616Z"
+  },
+  {
+    "id": 4612,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T20:34:33.638Z"
+  },
+  {
+    "id": 4613,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T20:34:33.661Z"
+  },
+  {
+    "id": 4614,
+    "page": "/",
+    "timestamp": "2025-02-09T20:34:39.450Z"
+  },
+  {
+    "id": 4615,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:34:39.685Z"
+  },
+  {
+    "id": 4616,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:34:39.702Z"
+  },
+  {
+    "id": 4617,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:34:41.896Z"
+  },
+  {
+    "id": 4618,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:34:42.323Z"
+  },
+  {
+    "id": 4619,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:34:42.395Z"
+  },
+  {
+    "id": 4620,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:34:42.438Z"
+  },
+  {
+    "id": 4621,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-02-09T20:34:42.749Z"
+  },
+  {
+    "id": 4622,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:34:42.762Z"
+  },
+  {
+    "id": 4623,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:34:42.777Z"
+  },
+  {
+    "id": 4624,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:34:42.808Z"
+  },
+  {
+    "id": 4625,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:34:42.915Z"
+  },
+  {
+    "id": 4626,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T20:34:42.925Z"
+  },
+  {
+    "id": 4627,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T20:34:43.083Z"
+  },
+  {
+    "id": 4628,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T20:34:43.094Z"
+  },
+  {
+    "id": 4629,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T20:34:43.106Z"
+  },
+  {
+    "id": 4630,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T20:34:43.139Z"
+  },
+  {
+    "id": 4631,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T20:34:43.209Z"
+  },
+  {
+    "id": 4632,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T20:34:43.227Z"
+  },
+  {
+    "id": 4633,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T20:34:43.239Z"
+  },
+  {
+    "id": 4634,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T20:34:43.251Z"
+  },
+  {
+    "id": 4635,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T20:34:43.285Z"
+  },
+  {
+    "id": 4636,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T20:34:43.333Z"
+  },
+  {
+    "id": 4637,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T20:34:43.434Z"
+  },
+  {
+    "id": 4638,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T20:34:43.445Z"
+  },
+  {
+    "id": 4639,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T20:34:43.468Z"
+  },
+  {
+    "id": 4640,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T20:34:43.480Z"
+  },
+  {
+    "id": 4641,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T20:34:43.492Z"
+  },
+  {
+    "id": 4642,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T20:34:43.578Z"
+  },
+  {
+    "id": 4643,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T20:34:43.591Z"
+  },
+  {
+    "id": 4644,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T20:34:43.613Z"
+  },
+  {
+    "id": 4645,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T20:34:43.625Z"
+  },
+  {
+    "id": 4646,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T20:34:43.638Z"
+  },
+  {
+    "id": 4647,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T20:34:43.655Z"
+  },
+  {
+    "id": 4648,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T20:34:43.732Z"
+  },
+  {
+    "id": 4649,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T20:34:43.750Z"
+  },
+  {
+    "id": 4650,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T20:34:43.771Z"
+  },
+  {
+    "id": 4651,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T20:34:43.800Z"
+  },
+  {
+    "id": 4652,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T20:34:43.812Z"
+  },
+  {
+    "id": 4653,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T20:34:44.945Z"
+  },
+  {
+    "id": 4654,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T20:34:46.046Z"
+  },
+  {
+    "id": 4655,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T20:34:47.926Z"
+  },
+  {
+    "id": 4656,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T20:34:56.330Z"
+  },
+  {
+    "id": 4657,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T20:35:01.811Z"
+  },
+  {
+    "id": 4658,
+    "page": "/",
+    "timestamp": "2025-02-09T20:35:14.302Z"
+  },
+  {
+    "id": 4659,
+    "page": "/",
+    "timestamp": "2025-02-09T20:35:14.586Z"
+  },
+  {
+    "id": 4660,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:35:14.602Z"
+  },
+  {
+    "id": 4661,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:35:14.740Z"
+  },
+  {
+    "id": 4662,
+    "page": "/",
+    "timestamp": "2025-02-09T20:35:15.553Z"
+  },
+  {
+    "id": 4663,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:35:15.573Z"
+  },
+  {
+    "id": 4664,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:35:15.592Z"
+  },
+  {
+    "id": 4665,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:35:15.617Z"
+  },
+  {
+    "id": 4666,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:35:16.122Z"
+  },
+  {
+    "id": 4667,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:35:16.409Z"
+  },
+  {
+    "id": 4668,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:35:16.419Z"
+  },
+  {
+    "id": 4669,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:35:16.468Z"
+  },
+  {
+    "id": 4670,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:35:16.518Z"
+  },
+  {
+    "id": 4671,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:35:16.565Z"
+  },
+  {
+    "id": 4672,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:35:16.600Z"
+  },
+  {
+    "id": 4673,
+    "page": "/",
+    "timestamp": "2025-02-09T20:35:16.629Z"
+  },
+  {
+    "id": 4674,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:35:16.639Z"
+  },
+  {
+    "id": 4675,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:35:16.727Z"
+  },
+  {
+    "id": 4676,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:35:16.756Z"
+  },
+  {
+    "id": 4677,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-02-09T20:35:16.789Z"
+  },
+  {
+    "id": 4678,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T20:35:16.814Z"
+  },
+  {
+    "id": 4679,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T20:35:16.838Z"
+  },
+  {
+    "id": 4680,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T20:35:16.851Z"
+  },
+  {
+    "id": 4681,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T20:35:16.886Z"
+  },
+  {
+    "id": 4682,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T20:35:16.913Z"
+  },
+  {
+    "id": 4683,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T20:35:16.943Z"
+  },
+  {
+    "id": 4684,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T20:35:16.970Z"
+  },
+  {
+    "id": 4685,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T20:35:16.995Z"
+  },
+  {
+    "id": 4686,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T20:35:17.010Z"
+  },
+  {
+    "id": 4687,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T20:35:17.046Z"
+  },
+  {
+    "id": 4688,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:35:17.072Z"
+  },
+  {
+    "id": 4689,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:35:17.155Z"
+  },
+  {
+    "id": 4690,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:35:17.172Z"
+  },
+  {
+    "id": 4691,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T20:35:17.202Z"
+  },
+  {
+    "id": 4692,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T20:35:17.228Z"
+  },
+  {
+    "id": 4693,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-02-09T20:35:17.285Z"
+  },
+  {
+    "id": 4694,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:35:17.316Z"
+  },
+  {
+    "id": 4695,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:35:17.330Z"
+  },
+  {
+    "id": 4696,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:35:17.358Z"
+  },
+  {
+    "id": 4697,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T20:35:17.383Z"
+  },
+  {
+    "id": 4698,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:35:17.458Z"
+  },
+  {
+    "id": 4699,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-02-09T20:35:17.468Z"
+  },
+  {
+    "id": 4700,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T20:35:17.479Z"
+  },
+  {
+    "id": 4701,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T20:35:17.489Z"
+  },
+  {
+    "id": 4702,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T20:35:17.516Z"
+  },
+  {
+    "id": 4703,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T20:35:17.541Z"
+  },
+  {
+    "id": 4704,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T20:35:17.612Z"
+  },
+  {
+    "id": 4705,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T20:35:17.627Z"
+  },
+  {
+    "id": 4706,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T20:35:17.641Z"
+  },
+  {
+    "id": 4707,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T20:35:17.652Z"
+  },
+  {
+    "id": 4708,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T20:35:17.678Z"
+  },
+  {
+    "id": 4709,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T20:35:17.700Z"
+  },
+  {
+    "id": 4710,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T20:35:17.766Z"
+  },
+  {
+    "id": 4711,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T20:35:17.786Z"
+  },
+  {
+    "id": 4712,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T20:35:17.798Z"
+  },
+  {
+    "id": 4713,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T20:35:17.810Z"
+  },
+  {
+    "id": 4714,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T20:35:17.834Z"
+  },
+  {
+    "id": 4715,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T20:35:17.858Z"
+  },
+  {
+    "id": 4716,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T20:35:17.925Z"
+  },
+  {
+    "id": 4717,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T20:35:17.949Z"
+  },
+  {
+    "id": 4718,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T20:35:17.961Z"
+  },
+  {
+    "id": 4719,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T20:35:17.976Z"
+  },
+  {
+    "id": 4720,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T20:35:17.991Z"
+  },
+  {
+    "id": 4721,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T20:35:18.018Z"
+  },
+  {
+    "id": 4722,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T20:35:18.080Z"
+  },
+  {
+    "id": 4723,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:35:18.159Z"
+  },
+  {
+    "id": 4724,
+    "page": "/@vite/client",
+    "timestamp": "2025-02-09T20:35:18.169Z"
+  },
+  {
+    "id": 4725,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:35:18.179Z"
+  },
+  {
+    "id": 4726,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T20:35:18.234Z"
+  },
+  {
+    "id": 4727,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:35:18.274Z"
+  },
+  {
+    "id": 4728,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T20:35:18.313Z"
+  },
+  {
+    "id": 4729,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:35:18.329Z"
+  },
+  {
+    "id": 4730,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T20:35:18.339Z"
+  },
+  {
+    "id": 4731,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T20:35:18.391Z"
+  },
+  {
+    "id": 4732,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T20:35:18.470Z"
+  },
+  {
+    "id": 4733,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T20:35:18.496Z"
+  },
+  {
+    "id": 4734,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T20:35:18.547Z"
+  },
+  {
+    "id": 4735,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T20:35:18.557Z"
+  },
+  {
+    "id": 4736,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T20:35:18.586Z"
+  },
+  {
+    "id": 4737,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T20:35:18.624Z"
+  },
+  {
+    "id": 4738,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T20:35:18.651Z"
+  },
+  {
+    "id": 4739,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T20:35:18.702Z"
+  },
+  {
+    "id": 4740,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T20:35:18.714Z"
+  },
+  {
+    "id": 4741,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T20:35:18.744Z"
+  },
+  {
+    "id": 4742,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T20:35:18.778Z"
+  },
+  {
+    "id": 4743,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T20:35:18.807Z"
+  },
+  {
+    "id": 4744,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T20:35:18.927Z"
+  },
+  {
+    "id": 4745,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:35:18.937Z"
+  },
+  {
+    "id": 4746,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:35:18.947Z"
+  },
+  {
+    "id": 4747,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:35:18.981Z"
+  },
+  {
+    "id": 4748,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:35:18.992Z"
+  },
+  {
+    "id": 4749,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-02-09T20:35:19.006Z"
+  },
+  {
+    "id": 4750,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T20:35:19.084Z"
+  },
+  {
+    "id": 4751,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T20:35:19.094Z"
+  },
+  {
+    "id": 4752,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T20:35:19.128Z"
+  },
+  {
+    "id": 4753,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T20:35:19.140Z"
+  },
+  {
+    "id": 4754,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T20:35:19.160Z"
+  },
+  {
+    "id": 4755,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T20:35:19.185Z"
+  },
+  {
+    "id": 4756,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T20:35:19.246Z"
+  },
+  {
+    "id": 4757,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T20:35:19.259Z"
+  },
+  {
+    "id": 4758,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T20:35:19.285Z"
+  },
+  {
+    "id": 4759,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T20:35:19.305Z"
+  },
+  {
+    "id": 4760,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T20:35:19.320Z"
+  },
+  {
+    "id": 4761,
+    "page": "/@react-refresh",
+    "timestamp": "2025-02-09T20:35:19.722Z"
+  },
+  {
+    "id": 4762,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-02-09T20:35:19.741Z"
+  },
+  {
+    "id": 4763,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-02-09T20:35:19.764Z"
+  },
+  {
+    "id": 4764,
+    "page": "/src/index.css",
+    "timestamp": "2025-02-09T20:35:19.797Z"
+  },
+  {
+    "id": 4765,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T20:35:19.807Z"
+  },
+  {
+    "id": 4766,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T20:35:19.858Z"
+  },
+  {
+    "id": 4767,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T20:35:19.884Z"
+  },
+  {
+    "id": 4768,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T20:35:19.898Z"
+  },
+  {
+    "id": 4769,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T20:35:19.948Z"
+  },
+  {
+    "id": 4770,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T20:35:19.972Z"
+  },
+  {
+    "id": 4771,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T20:35:19.985Z"
+  },
+  {
+    "id": 4772,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T20:35:20.018Z"
+  },
+  {
+    "id": 4773,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T20:35:20.047Z"
+  },
+  {
+    "id": 4774,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T20:35:20.058Z"
+  },
+  {
+    "id": 4775,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T20:35:20.105Z"
+  },
+  {
+    "id": 4776,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T20:35:20.150Z"
+  },
+  {
+    "id": 4777,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T20:35:20.160Z"
+  },
+  {
+    "id": 4778,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T20:35:20.176Z"
+  },
+  {
+    "id": 4779,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T20:35:20.204Z"
+  },
+  {
+    "id": 4780,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T20:35:20.222Z"
+  },
+  {
+    "id": 4781,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-02-09T20:35:20.616Z"
+  },
+  {
+    "id": 4782,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-02-09T20:35:20.631Z"
+  },
+  {
+    "id": 4783,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-02-09T20:35:20.661Z"
+  },
+  {
+    "id": 4784,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T20:35:20.674Z"
+  },
+  {
+    "id": 4785,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-02-09T20:35:20.709Z"
+  },
+  {
+    "id": 4786,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T20:35:20.761Z"
+  },
+  {
+    "id": 4787,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T20:35:20.777Z"
+  },
+  {
+    "id": 4788,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T20:35:20.790Z"
+  },
+  {
+    "id": 4789,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T20:35:20.819Z"
+  },
+  {
+    "id": 4790,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T20:35:20.837Z"
+  },
+  {
+    "id": 4791,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T20:35:20.877Z"
+  },
+  {
+    "id": 4792,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T20:35:20.924Z"
+  },
+  {
+    "id": 4793,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T20:35:20.936Z"
+  },
+  {
+    "id": 4794,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T20:35:20.948Z"
+  },
+  {
+    "id": 4795,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T20:35:20.975Z"
+  },
+  {
+    "id": 4796,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T20:35:20.995Z"
+  },
+  {
+    "id": 4797,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T20:35:21.039Z"
+  },
+  {
+    "id": 4798,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T20:35:21.088Z"
+  },
+  {
+    "id": 4799,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T20:35:21.101Z"
+  },
+  {
+    "id": 4800,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T20:35:21.114Z"
+  },
+  {
+    "id": 4801,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T20:35:21.148Z"
+  },
+  {
+    "id": 4802,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T20:35:21.164Z"
+  },
+  {
+    "id": 4803,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T20:35:21.202Z"
+  },
+  {
+    "id": 4804,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T20:35:21.248Z"
+  },
+  {
+    "id": 4805,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T20:35:21.262Z"
+  },
+  {
+    "id": 4806,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T20:35:21.281Z"
+  },
+  {
+    "id": 4807,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T20:35:21.312Z"
+  },
+  {
+    "id": 4808,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T20:35:21.352Z"
+  },
+  {
+    "id": 4809,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T20:35:21.362Z"
+  },
+  {
+    "id": 4810,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T20:35:21.427Z"
+  },
+  {
+    "id": 4811,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T20:35:21.438Z"
+  },
+  {
+    "id": 4812,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T20:35:21.467Z"
+  },
+  {
+    "id": 4813,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T20:35:21.824Z"
   }
 ]
