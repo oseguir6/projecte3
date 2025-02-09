@@ -27,6 +27,7 @@ const DEFAULT_SITE_CONTENT = {
   "hero.button.contact": "Contact Me",
   "technologies.title": "Tecnologías con las que trabajo",
   "technologies.subtitle": "Tech Stack",
+  "technologies.list": "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux",
   "projects.title": "Proyectos Destacados",
   "projects.subtitle": "Algunos de mis trabajos más recientes",
   "contact.title": "Contacto",

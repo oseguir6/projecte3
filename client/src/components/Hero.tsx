@@ -33,6 +33,11 @@ export default function Hero() {
     select: (data: any) => data.value,
   });
 
+  const { data: techList = "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux" } = useQuery({
+    queryKey: ["/api/site-content/technologies.list"],
+    select: (data: any) => data.value,
+  });
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-[#0A0A0A] py-32 relative overflow-hidden">
       {/* Animated background grid */}
@@ -61,7 +66,7 @@ export default function Hero() {
         >
           <div className="flex items-center gap-4 mb-6">
             <Terminal className="h-8 w-8 text-[#E94560]" />
-            <motion.div 
+            <motion.div
               className="text-xl text-[#E94560] font-mono"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -71,7 +76,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          <motion.h1 
+          <motion.h1
             className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -96,14 +101,14 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <a 
+            <a
               href="#projects"
               className="bg-[#E94560] text-white px-8 py-3 rounded-md inline-flex items-center gap-2 hover:bg-[#E94560]/90 transition-colors"
             >
               <Code2 className="w-5 h-5" />
               {buttonProjects}
             </a>
-            <a 
+            <a
               href="/contact"
               className="border border-[#E94560] text-white px-8 py-3 rounded-md inline-flex items-center gap-2 hover:bg-[#E94560]/10 transition-colors"
             >
@@ -129,10 +134,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            {[
-              'JavaScript', 'TypeScript', 'React', 'Node.js',
-              'PostgreSQL', 'Docker', 'AWS', 'Linux'
-            ].map((tech, index) => (
+            {techList.split(',').map((tech, index) => (
               <motion.div
                 key={tech}
                 className="px-4 py-2 bg-[#1A1A2E] rounded-md text-white/70 border border-[#16213E] hover:border-[#E94560] transition-colors"

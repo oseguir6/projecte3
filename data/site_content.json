@@ -46,5 +46,23 @@
     "key": "contact.description",
     "value": "¿Tienes un proyecto en mente? ¡Hablemos!",
     "createdAt": "2025-02-09T11:08:32.344Z"
+  },
+  {
+    "id": null,
+    "key": "hero.button.projects",
+    "value": "View Projects",
+    "createdAt": "2025-02-09T11:23:30.684Z"
+  },
+  {
+    "id": null,
+    "key": "hero.button.contact",
+    "value": "Contact Me",
+    "createdAt": "2025-02-09T11:23:30.684Z"
+  },
+  {
+    "id": null,
+    "key": "technologies.subtitle",
+    "value": "Tech Stack",
+    "createdAt": "2025-02-09T11:23:30.684Z"
   }
 ]
