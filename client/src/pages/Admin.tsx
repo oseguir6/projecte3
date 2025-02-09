@@ -29,6 +29,7 @@ import type { Contact, Visit, Project, Technology, Blog } from "@shared/schema";
 import { useState } from "react";
 import SiteContentForm from "@/components/SiteContentForm";
 import BlogForm from "@/components/BlogForm";
+import AboutForm from "@/components/AboutForm";
 
 export default function Admin() {
   const [_, setLocation] = useLocation();
@@ -456,10 +457,11 @@ export default function Admin() {
           </div>
 
           <Tabs defaultValue="projects" className="w-full">
-            <TabsList className="grid w-full grid-cols-6 max-w-[1000px]">
+            <TabsList className="grid w-full grid-cols-7 max-w-[1000px]">
               <TabsTrigger value="projects">Projects</TabsTrigger>
               <TabsTrigger value="technologies">Technologies</TabsTrigger>
               <TabsTrigger value="blogs">Blogs</TabsTrigger>
+              <TabsTrigger value="about">About</TabsTrigger>
               <TabsTrigger value="content">Site Content</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
               <TabsTrigger value="messages">Messages</TabsTrigger>
@@ -761,6 +763,19 @@ export default function Admin() {
                       ))}
                     </div>
                   </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="about">
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <CardTitle className="text-white">About Page Content</CardTitle>
+                  <CardDescription>
+                    Edit your about page content
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <AboutForm />
                 </CardContent>
               </Card>
             </TabsContent>
