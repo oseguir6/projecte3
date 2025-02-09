@@ -3,10 +3,16 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Terminal, Menu } from "lucide-react";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Navigation() {
   const [location] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { data: terminalText = "dev@portfolio:~$" } = useQuery({
+    queryKey: ["/api/site-content/hero.terminal.text"],
+    select: (data: any) => data.value,
+  });
 
   const links = [
     { href: "/", label: "Home" },
@@ -25,7 +31,7 @@ export default function Navigation() {
             className="flex items-center gap-2"
           >
             <Terminal className="h-6 w-6 text-[#E94560]" />
-            <span className="text-white font-mono text-lg">dev@portfolio:~$</span>
+            <span className="text-white font-mono text-lg">{terminalText}</span>
           </motion.div>
 
           {/* Mobile menu button */}

@@ -2,7 +2,7 @@
   {
     "id": null,
     "key": "hero.title",
-    "value": "Hola, soy Dev",
+    "value": "Hola, soy VWolf",
     "createdAt": "2025-02-09T11:31:45.288Z"
   },
   {
@@ -32,7 +32,7 @@
   {
     "id": null,
     "key": "hero.terminal.text",
-    "value": "dev@portfolio:~$",
+    "value": "vwolf@portfolio:~$",
     "createdAt": "2025-02-09T11:31:45.289Z"
   },
   {
