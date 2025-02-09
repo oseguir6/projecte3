@@ -199,12 +199,17 @@ export function registerRoutes(app: Express): Server {
     res.json({ value });
   });
 
+  // Actualizar la ruta PUT de site-content
   app.put("/api/admin/site-content/:key", requireAuth, async (req: Request, res: Response) => {
     try {
-      const { value } = insertSiteContentSchema.parse(req.body);
-      const content = await storage.updateSiteContent(req.params.key, value);
+      const contentData = insertSiteContentSchema.parse({
+        key: req.params.key,
+        value: req.body.value
+      });
+      const content = await storage.updateSiteContent(contentData.key, contentData.value);
       res.json(content);
     } catch (error) {
+      console.error('Error updating site content:', error);
       res.status(400).json({ message: "Invalid content data" });
     }
   });

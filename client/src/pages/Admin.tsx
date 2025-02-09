@@ -230,9 +230,15 @@ export default function Admin() {
     queryKey: ["/api/site-content"],
   });
 
+  // Reemplazar la mutación updateSiteContentMutation existente con esta versión actualizada
   const updateSiteContentMutation = useMutation({
     mutationFn: async ({ key, value }: { key: string, value: string }) => {
-      await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
+      const response = await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to update content');
+      }
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });
@@ -241,10 +247,10 @@ export default function Admin() {
         description: "Content updated successfully",
       });
     },
-    onError: () => {
+    onError: (error: Error) => {
       toast({
         title: "Error",
-        description: "Failed to update content",
+        description: error.message || "Failed to update content",
         variant: "destructive",
       });
     },
