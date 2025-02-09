@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -40,6 +40,16 @@ export const siteContent = pgTable("site_content", {
   createdAt: timestamp("created_at").defaultNow()
 });
 
+export const blogs = pgTable("blogs", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  image: text("image").notNull(),
+  tags: text("tags").array().notNull(),
+  published: boolean("published").notNull().default(false),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
 export const insertContactSchema = createInsertSchema(contacts).omit({
   id: true,
   createdAt: true
@@ -73,6 +83,15 @@ export const loginSchema = z.object({
   password: z.string()
 });
 
+export const insertBlogSchema = createInsertSchema(blogs).omit({
+  id: true,
+  createdAt: true
+}).extend({
+  tags: z.array(z.string()),
+  image: z.string().url(),
+  published: z.boolean().default(false)
+});
+
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type Contact = typeof contacts.$inferSelect;
 export type Visit = typeof visits.$inferSelect;
@@ -83,3 +102,5 @@ export type InsertTechnology = z.infer<typeof insertTechnologySchema>;
 export type Technology = typeof technologies.$inferSelect;
 export type InsertSiteContent = z.infer<typeof insertSiteContentSchema>;
 export type SiteContent = typeof siteContent.$inferSelect;
+export type InsertBlog = z.infer<typeof insertBlogSchema>;
+export type Blog = typeof blogs.$inferSelect;

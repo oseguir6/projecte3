@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
 import ProjectCard from "@/components/ProjectCard";
+import BlogSection from "@/components/BlogSection";
 import { useQuery } from "@tanstack/react-query";
 import type { Project, Technology } from "@shared/schema";
 
@@ -68,6 +69,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Blog Section */}
+      <BlogSection />
     </div>
   );
 }

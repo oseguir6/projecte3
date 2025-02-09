@@ -25,9 +25,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Terminal, Users, Eye } from "lucide-react";
-import type { Contact, Visit, Project, Technology } from "@shared/schema";
+import type { Contact, Visit, Project, Technology, Blog } from "@shared/schema";
 import { useState } from "react";
 import SiteContentForm from "@/components/SiteContentForm";
+import BlogForm from "@/components/BlogForm";
 
 export default function Admin() {
   const [_, setLocation] = useLocation();
@@ -36,6 +37,8 @@ export default function Admin() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isTechnologyModalOpen, setIsTechnologyModalOpen] = useState(false);
   const [selectedTechnology, setSelectedTechnology] = useState<Technology | null>(null);
+  const [isBlogModalOpen, setIsBlogModalOpen] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
   const { data: contacts = [] } = useQuery<Contact[]>({
     queryKey: ["/api/admin/contacts"],
@@ -51,6 +54,10 @@ export default function Admin() {
 
   const { data: technologies = [] } = useQuery<Technology[]>({
     queryKey: ["/api/technologies"],
+  });
+
+  const { data: blogs = [] } = useQuery<Blog[]>({
+    queryKey: ["/api/blogs"],
   });
 
   const createProjectMutation = useMutation({
@@ -257,6 +264,70 @@ export default function Admin() {
   });
 
 
+  const createBlogMutation = useMutation({
+    mutationFn: async (data: any) => {
+      await apiRequest("POST", "/api/admin/blogs", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/blogs"] });
+      setIsBlogModalOpen(false);
+      setSelectedBlog(null);
+      toast({
+        title: "Success",
+        description: "Blog post created successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create blog post",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateBlogMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      await apiRequest("PUT", `/api/admin/blogs/${id}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/blogs"] });
+      setIsBlogModalOpen(false);
+      setSelectedBlog(null);
+      toast({
+        title: "Success",
+        description: "Blog post updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update blog post",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteBlogMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest("DELETE", `/api/admin/blogs/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/blogs"] });
+      toast({
+        title: "Success",
+        description: "Blog post deleted successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete blog post",
+        variant: "destructive",
+      });
+    },
+  });
+
   return (
     <>
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
@@ -296,6 +367,33 @@ export default function Admin() {
             onCancel={() => {
               setIsTechnologyModalOpen(false);
               setSelectedTechnology(null);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isBlogModalOpen} onOpenChange={setIsBlogModalOpen}>
+        <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
+          <DialogHeader>
+            <DialogTitle className="text-white">
+              {selectedBlog ? "Edit Blog Post" : "Create New Blog Post"}
+            </DialogTitle>
+            <DialogDescription>
+              {selectedBlog ? "Update your blog post details below" : "Add a new blog post to your portfolio"}
+            </DialogDescription>
+          </DialogHeader>
+          <BlogForm
+            initialData={selectedBlog || undefined}
+            onSubmit={(data) => {
+              if (selectedBlog) {
+                updateBlogMutation.mutate({ id: selectedBlog.id, data });
+              } else {
+                createBlogMutation.mutate(data);
+              }
+            }}
+            onCancel={() => {
+              setIsBlogModalOpen(false);
+              setSelectedBlog(null);
             }}
           />
         </DialogContent>
@@ -358,9 +456,10 @@ export default function Admin() {
           </div>
 
           <Tabs defaultValue="projects" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 max-w-[1000px]">
+            <TabsList className="grid w-full grid-cols-6 max-w-[1000px]">
               <TabsTrigger value="projects">Projects</TabsTrigger>
               <TabsTrigger value="technologies">Technologies</TabsTrigger>
+              <TabsTrigger value="blogs">Blogs</TabsTrigger>
               <TabsTrigger value="content">Site Content</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
               <TabsTrigger value="messages">Messages</TabsTrigger>
@@ -531,6 +630,140 @@ export default function Admin() {
               </Card>
             </TabsContent>
 
+            <TabsContent value="blogs">
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <CardTitle className="text-white">Blog Management</CardTitle>
+                      <CardDescription>
+                        Manage your blog posts
+                      </CardDescription>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        setSelectedBlog(null);
+                        setIsBlogModalOpen(true);
+                      }}
+                      className="bg-[#E94560] hover:bg-[#E94560]/90"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Blog Post
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[600px] pr-4">
+                    <div className="space-y-4">
+                      {blogs.map((blog) => (
+                        <motion.div
+                          key={blog.id}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                <h3 className="text-lg font-semibold text-white">
+                                  {blog.title}
+                                </h3>
+                                {blog.published ? (
+                                  <span className="px-2 py-1 text-xs bg-green-500/20 text-green-500 rounded-full">
+                                    Published
+                                  </span>
+                                ) : (
+                                  <span className="px-2 py-1 text-xs bg-yellow-500/20 text-yellow-500 rounded-full">
+                                    Draft
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex flex-wrap gap-2 mt-2">
+                                {blog.tags.map((tag) => (
+                                  <span
+                                    key={tag}
+                                    className="px-2 py-1 text-xs bg-[#1A1A2E] text-white/70 rounded-full"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                              <p className="text-white/70 mt-2 line-clamp-2">
+                                {blog.content}
+                              </p>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => {
+                                  setSelectedBlog(blog);
+                                  setIsBlogModalOpen(true);
+                                }}
+                                className="border-[#E94560] hover:bg-[#E94560]/10"
+                              >
+                                <Pencil className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="destructive"
+                                size="icon"
+                                onClick={() => deleteBlogMutation.mutate(blog.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                          {blog.image && (
+                            <div className="aspect-video overflow-hidden rounded-lg mt-4">
+                              <img
+                                src={blog.image}
+                                alt={blog.title}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="content">
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <CardTitle className="text-white">Site Content Management</CardTitle>
+                  <CardDescription>
+                    Edit website content and texts
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[600px] pr-4">
+                    <div className="space-y-6">
+                      {siteContent.map((content) => (
+                        <motion.div
+                          key={content.key}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <SiteContentForm
+                            contentKey={content.key}
+                            initialValue={content.value}
+                            isLongText={content.key.includes("description")}
+                            onSubmit={({ value }) =>
+                              updateSiteContentMutation.mutate({ key: content.key, value })
+                            }
+                            onCancel={() => {}}
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
             <TabsContent value="analytics">
               <Card className="bg-[#1A1A2E] border-[#16213E]">
                 <CardHeader>
@@ -612,41 +845,6 @@ export default function Admin() {
                           <p className="text-white/70 bg-[#1A1A2E] p-3 rounded">
                             {contact.message}
                           </p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="content">
-              <Card className="bg-[#1A1A2E] border-[#16213E]">
-                <CardHeader>
-                  <CardTitle className="text-white">Site Content Management</CardTitle>
-                  <CardDescription>
-                    Edit website content and texts
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ScrollArea className="h-[600px] pr-4">
-                    <div className="space-y-6">
-                      {siteContent.map((content) => (
-                        <motion.div
-                          key={content.key}
-                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <SiteContentForm
-                            contentKey={content.key}
-                            initialValue={content.value}
-                            isLongText={content.key.includes("description")}
-                            onSubmit={({ value }) =>
-                              updateSiteContentMutation.mutate({ key: content.key, value })
-                            }
-                            onCancel={() => {}}
-                          />
                         </motion.div>
                       ))}
                     </div>
