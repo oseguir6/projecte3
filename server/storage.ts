@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject, type Technology, type InsertTechnology } from "@shared/schema";
+import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject, type Technology, type InsertTechnology, type SiteContent, type InsertSiteContent } from "@shared/schema";
 import fs from "fs";
 import path from "path";
 
@@ -13,10 +13,22 @@ const CONTACTS_FILE = path.join(DATA_DIR, "contacts.json");
 const VISITS_FILE = path.join(DATA_DIR, "visits.json");
 const PROJECTS_FILE = path.join(DATA_DIR, "projects.json");
 const TECHNOLOGIES_FILE = path.join(DATA_DIR, "technologies.json");
+const SITE_CONTENT_FILE = path.join(DATA_DIR, "site_content.json");
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
 }
+
+const DEFAULT_SITE_CONTENT = {
+  "hero.title": "Hola, soy Dev",
+  "hero.subtitle": "Desarrollador Full Stack",
+  "hero.description": "Me especializo en crear aplicaciones web modernas y escalables",
+  "technologies.title": "Tecnologías con las que trabajo",
+  "projects.title": "Proyectos Destacados",
+  "projects.subtitle": "Algunos de mis trabajos más recientes",
+  "contact.title": "Contacto",
+  "contact.description": "¿Tienes un proyecto en mente? ¡Hablemos!"
+};
 
 export interface IStorage {
   createContact(contact: InsertContact): Promise<Contact>;
@@ -34,6 +46,10 @@ export interface IStorage {
   deleteTechnology(id: number): Promise<void>;
   getTechnologies(): Promise<Technology[]>;
   getTechnology(id: number): Promise<Technology | null>;
+  // Site Content
+  getSiteContent(key: string): Promise<string>;
+  updateSiteContent(key: string, value: string): Promise<SiteContent>;
+  getAllSiteContent(): Promise<SiteContent[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -41,21 +57,25 @@ export class MemStorage implements IStorage {
   private visits: Map<number, Visit>;
   private projects: Map<number, Project>;
   private technologies: Map<number, Technology>;
+  private siteContent: Map<string, SiteContent>;
   private currentContactId: number;
   private currentVisitId: number;
   private currentProjectId: number;
   private currentTechnologyId: number;
+  private currentSiteContentId: number;
 
   constructor() {
     this.contacts = new Map();
     this.visits = new Map();
     this.projects = new Map();
     this.technologies = new Map();
+    this.siteContent = new Map();
     this.loadData();
     this.currentContactId = Math.max(1, ...Array.from(this.contacts.keys()), 0) + 1;
     this.currentVisitId = Math.max(1, ...Array.from(this.visits.keys()), 0) + 1;
     this.currentProjectId = Math.max(1, ...Array.from(this.projects.keys()), 0) + 1;
     this.currentTechnologyId = Math.max(1, ...Array.from(this.technologies.keys()), 0) + 1;
+    this.currentSiteContentId = Math.max(1, ...Array.from(this.siteContent.keys()).map(Number), 0) + 1;
   }
 
   private loadData() {
@@ -91,6 +111,26 @@ export class MemStorage implements IStorage {
           this.technologies.set(technology.id, technology);
         });
       }
+
+      if (fs.existsSync(SITE_CONTENT_FILE)) {
+        const contentData = JSON.parse(fs.readFileSync(SITE_CONTENT_FILE, 'utf-8'));
+        contentData.forEach((content: SiteContent) => {
+          content.createdAt = new Date(content.createdAt!);
+          this.siteContent.set(content.key, content);
+        });
+      } else {
+        // Initialize with default content if file doesn't exist
+        Object.entries(DEFAULT_SITE_CONTENT).forEach(([key, value]) => {
+          const content: SiteContent = {
+            id: this.currentSiteContentId++,
+            key,
+            value,
+            createdAt: new Date()
+          };
+          this.siteContent.set(key, content);
+        });
+        this.saveData();
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -113,6 +153,10 @@ export class MemStorage implements IStorage {
       fs.writeFileSync(
         TECHNOLOGIES_FILE,
         JSON.stringify(Array.from(this.technologies.values()), null, 2)
+      );
+      fs.writeFileSync(
+        SITE_CONTENT_FILE,
+        JSON.stringify(Array.from(this.siteContent.values()), null, 2)
       );
     } catch (error) {
       console.error('Error saving data:', error);
@@ -246,6 +290,38 @@ export class MemStorage implements IStorage {
 
   async getTechnology(id: number): Promise<Technology | null> {
     return this.technologies.get(id) || null;
+  }
+
+  // Site Content methods
+  async getSiteContent(key: string): Promise<string> {
+    const content = this.siteContent.get(key);
+    return content?.value || DEFAULT_SITE_CONTENT[key] || '';
+  }
+
+  async updateSiteContent(key: string, value: string): Promise<SiteContent> {
+    let content = this.siteContent.get(key);
+
+    if (!content) {
+      content = {
+        id: this.currentSiteContentId++,
+        key,
+        value,
+        createdAt: new Date()
+      };
+    } else {
+      content = {
+        ...content,
+        value
+      };
+    }
+
+    this.siteContent.set(key, content);
+    this.saveData();
+    return content;
+  }
+
+  async getAllSiteContent(): Promise<SiteContent[]> {
+    return Array.from(this.siteContent.values());
   }
 }
 

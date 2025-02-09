@@ -27,6 +27,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recha
 import { Terminal, Users, Eye } from "lucide-react";
 import type { Contact, Visit, Project, Technology } from "@shared/schema";
 import { useState } from "react";
+import SiteContentForm from "@/components/SiteContentForm";
 
 export default function Admin() {
   const [_, setLocation] = useLocation();
@@ -225,13 +226,38 @@ export default function Admin() {
   const uniquePages = Object.keys(visitsByPage).length;
   const totalContacts = contacts.length;
 
+  const { data: siteContent = [] } = useQuery({
+    queryKey: ["/api/site-content"],
+  });
+
+  const updateSiteContentMutation = useMutation({
+    mutationFn: async ({ key, value }: { key: string, value: string }) => {
+      await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });
+      toast({
+        title: "Success",
+        description: "Content updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update content",
+        variant: "destructive",
+      });
+    },
+  });
+
+
   return (
     <>
       <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
         <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
           <DialogHeader>
             <DialogTitle className="text-white">
-              {selectedProject ? 'Edit Project' : 'Create New Project'}
+              {selectedProject ? "Edit Project" : "Create New Project"}
             </DialogTitle>
             <DialogDescription>
               Add or update project details below
@@ -252,7 +278,7 @@ export default function Admin() {
         <DialogContent className="sm:max-w-[800px] bg-[#1A1A2E] border-[#16213E]">
           <DialogHeader>
             <DialogTitle className="text-white">
-              {selectedTechnology ? 'Edit Technology' : 'Create New Technology'}
+              {selectedTechnology ? "Edit Technology" : "Create New Technology"}
             </DialogTitle>
             <DialogDescription>
               Add or update technology details below
@@ -326,9 +352,10 @@ export default function Admin() {
           </div>
 
           <Tabs defaultValue="projects" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 max-w-[800px]">
+            <TabsList className="grid w-full grid-cols-5 max-w-[1000px]">
               <TabsTrigger value="projects">Projects</TabsTrigger>
               <TabsTrigger value="technologies">Technologies</TabsTrigger>
+              <TabsTrigger value="content">Site Content</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>
               <TabsTrigger value="messages">Messages</TabsTrigger>
             </TabsList>
@@ -510,19 +537,19 @@ export default function Admin() {
                   <div className="h-[400px] mt-4">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={chartData}>
-                        <XAxis 
-                          dataKey="page" 
+                        <XAxis
+                          dataKey="page"
                           stroke="#ffffff60"
                           fontSize={12}
-                          tickFormatter={(value) => value.replace('/', '')}
+                          tickFormatter={(value) => value.replace("/", "")}
                         />
                         <YAxis stroke="#ffffff60" fontSize={12} />
-                        <Tooltip 
-                          contentStyle={{ 
-                            backgroundColor: '#1A1A2E',
-                            border: '1px solid #16213E',
-                            borderRadius: '4px',
-                            color: '#fff'
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "#1A1A2E",
+                            border: "1px solid #16213E",
+                            borderRadius: "4px",
+                            color: "#fff",
                           }}
                         />
                         <Bar dataKey="visits" fill="#E94560" />
@@ -579,6 +606,41 @@ export default function Admin() {
                           <p className="text-white/70 bg-[#1A1A2E] p-3 rounded">
                             {contact.message}
                           </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="content">
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <CardTitle className="text-white">Site Content Management</CardTitle>
+                  <CardDescription>
+                    Edit website content and texts
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[600px] pr-4">
+                    <div className="space-y-6">
+                      {siteContent.map((content) => (
+                        <motion.div
+                          key={content.key}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <SiteContentForm
+                            contentKey={content.key}
+                            initialValue={content.value}
+                            isLongText={content.key.includes("description")}
+                            onSubmit={({ value }) =>
+                              updateSiteContentMutation.mutate({ key: content.key, value })
+                            }
+                            onCancel={() => {}}
+                          />
                         </motion.div>
                       ))}
                     </div>

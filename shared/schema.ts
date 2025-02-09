@@ -33,6 +33,13 @@ export const technologies = pgTable("technologies", {
   createdAt: timestamp("created_at").defaultNow()
 });
 
+export const siteContent = pgTable("site_content", {
+  id: serial("id").primaryKey(),
+  key: text("key").notNull().unique(),
+  value: text("value").notNull(),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
 export const insertContactSchema = createInsertSchema(contacts).omit({
   id: true,
   createdAt: true
@@ -56,6 +63,11 @@ export const insertTechnologySchema = createInsertSchema(technologies).omit({
   icon: z.string()
 });
 
+export const insertSiteContentSchema = createInsertSchema(siteContent).omit({
+  id: true,
+  createdAt: true
+});
+
 export const loginSchema = z.object({
   username: z.string(),
   password: z.string()
@@ -69,3 +81,5 @@ export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type Project = typeof projects.$inferSelect;
 export type InsertTechnology = z.infer<typeof insertTechnologySchema>;
 export type Technology = typeof technologies.$inferSelect;
+export type InsertSiteContent = z.infer<typeof insertSiteContentSchema>;
+export type SiteContent = typeof siteContent.$inferSelect;

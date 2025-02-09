@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema } from "@shared/schema";
+import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema, insertSiteContentSchema } from "@shared/schema";
 import session from "express-session";
 
 declare module "express-session" {
@@ -185,6 +185,27 @@ export function registerRoutes(app: Express): Server {
       res.json(contact);
     } catch (error) {
       res.status(400).json({ message: "Invalid contact data" });
+    }
+  });
+
+  // Site Content routes
+  app.get("/api/site-content", async (req: Request, res: Response) => {
+    const content = await storage.getAllSiteContent();
+    res.json(content);
+  });
+
+  app.get("/api/site-content/:key", async (req: Request, res: Response) => {
+    const value = await storage.getSiteContent(req.params.key);
+    res.json({ value });
+  });
+
+  app.put("/api/admin/site-content/:key", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const { value } = insertSiteContentSchema.parse(req.body);
+      const content = await storage.updateSiteContent(req.params.key, value);
+      res.json(content);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid content data" });
     }
   });
 

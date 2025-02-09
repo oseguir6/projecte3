@@ -1,7 +1,23 @@
 import { motion } from "framer-motion";
 import { Terminal, Code2, Globe } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Hero() {
+  const { data: heroTitle = "Hola, soy Dev" } = useQuery({
+    queryKey: ["/api/site-content/hero.title"],
+    select: (data) => data.value,
+  });
+
+  const { data: heroSubtitle = "Desarrollador Full Stack" } = useQuery({
+    queryKey: ["/api/site-content/hero.subtitle"],
+    select: (data) => data.value,
+  });
+
+  const { data: heroDescription = "Me especializo en crear aplicaciones web modernas y escalables" } = useQuery({
+    queryKey: ["/api/site-content/hero.description"],
+    select: (data) => data.value,
+  });
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-[#0A0A0A] py-32 relative overflow-hidden">
       {/* Animated background grid */}
@@ -46,8 +62,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Full Stack Developer & <br />
-            <span className="text-[#E94560]">System Engineer</span>
+            {heroTitle} <br />
+            <span className="text-[#E94560]">{heroSubtitle}</span>
           </motion.h1>
 
           <motion.p
@@ -56,7 +72,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Crafting robust digital solutions with modern technologies and a deep understanding of system architecture.
+            {heroDescription}
           </motion.p>
 
           <motion.div
