@@ -23023,5 +23023,190 @@
     "id": 4606,
     "page": "/src/components/Navigation.tsx",
     "timestamp": "2025-02-09T12:28:08.228Z"
+  },
+  {
+    "id": 4607,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-02-09T12:28:08.266Z"
+  },
+  {
+    "id": 4608,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-02-09T12:28:08.291Z"
+  },
+  {
+    "id": 4609,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-02-09T12:28:08.388Z"
+  },
+  {
+    "id": 4610,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-02-09T12:28:08.427Z"
+  },
+  {
+    "id": 4611,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-02-09T12:28:08.451Z"
+  },
+  {
+    "id": 4612,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-02-09T12:28:08.539Z"
+  },
+  {
+    "id": 4613,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-02-09T12:28:08.549Z"
+  },
+  {
+    "id": 4614,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-02-09T12:28:08.584Z"
+  },
+  {
+    "id": 4615,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-02-09T12:28:08.607Z"
+  },
+  {
+    "id": 4616,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-02-09T12:28:08.695Z"
+  },
+  {
+    "id": 4617,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-02-09T12:28:08.705Z"
+  },
+  {
+    "id": 4618,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-02-09T12:28:08.740Z"
+  },
+  {
+    "id": 4619,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-02-09T12:28:08.763Z"
+  },
+  {
+    "id": 4620,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-02-09T12:28:08.851Z"
+  },
+  {
+    "id": 4621,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-02-09T12:28:08.861Z"
+  },
+  {
+    "id": 4622,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-02-09T12:28:08.894Z"
+  },
+  {
+    "id": 4623,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-02-09T12:28:08.943Z"
+  },
+  {
+    "id": 4624,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-02-09T12:28:08.982Z"
+  },
+  {
+    "id": 4625,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-02-09T12:28:08.992Z"
+  },
+  {
+    "id": 4626,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-02-09T12:28:09.005Z"
+  },
+  {
+    "id": 4627,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-02-09T12:28:09.017Z"
+  },
+  {
+    "id": 4628,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-02-09T12:28:09.049Z"
+  },
+  {
+    "id": 4629,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-02-09T12:28:09.098Z"
+  },
+  {
+    "id": 4630,
+    "page": "/src/components/ProjectForm.tsx",
+    "timestamp": "2025-02-09T12:28:09.138Z"
+  },
+  {
+    "id": 4631,
+    "page": "/src/components/TechnologyForm.tsx",
+    "timestamp": "2025-02-09T12:28:09.151Z"
+  },
+  {
+    "id": 4632,
+    "page": "/src/components/ui/dialog.tsx",
+    "timestamp": "2025-02-09T12:28:09.162Z"
+  },
+  {
+    "id": 4633,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-02-09T12:28:09.174Z"
+  },
+  {
+    "id": 4634,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-02-09T12:28:09.205Z"
+  },
+  {
+    "id": 4635,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-02-09T12:28:09.255Z"
+  },
+  {
+    "id": 4636,
+    "page": "/src/components/BlogForm.tsx",
+    "timestamp": "2025-02-09T12:28:09.296Z"
+  },
+  {
+    "id": 4637,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-02-09T12:28:09.308Z"
+  },
+  {
+    "id": 4638,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-02-09T12:28:09.320Z"
+  },
+  {
+    "id": 4639,
+    "page": "/src/components/ui/switch.tsx",
+    "timestamp": "2025-02-09T12:28:09.457Z"
+  },
+  {
+    "id": 4640,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T12:28:10.130Z"
+  },
+  {
+    "id": 4641,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T12:28:11.400Z"
+  },
+  {
+    "id": 4642,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T12:28:23.440Z"
+  },
+  {
+    "id": 4643,
+    "page": "/favicon.ico",
+    "timestamp": "2025-02-09T12:28:25.936Z"
   }
 ]
