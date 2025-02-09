@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "name": "prueba",
+    "email": "prueba@gmail.com",
+    "message": "Prueba mensaje",
+    "id": 2,
+    "createdAt": "2025-02-09T10:31:29.204Z"
+  }
+]

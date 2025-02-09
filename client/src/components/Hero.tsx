@@ -1,44 +1,118 @@
 import { motion } from "framer-motion";
+import { Terminal, Code2, Globe } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-[#0A0A0A] py-32">
-      <div className="container mx-auto px-4">
+    <section className="min-h-screen flex items-center justify-center bg-[#0A0A0A] py-32 relative overflow-hidden">
+      {/* Animated background grid */}
+      <div className="absolute inset-0 grid grid-cols-8 gap-4 opacity-10">
+        {Array.from({ length: 64 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="aspect-square border border-[#E94560]/20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.1, 0.3, 0.1] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: Math.random() * 4,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-3xl"
         >
+          <div className="flex items-center gap-4 mb-6">
+            <Terminal className="h-8 w-8 text-[#E94560]" />
+            <motion.div 
+              className="text-xl text-[#E94560] font-mono"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              ~/portfolio $
+            </motion.div>
+          </div>
+
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold text-white mb-6"
+            className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Creative Developer & Designer
+            Full Stack Developer & <br />
+            <span className="text-[#E94560]">System Engineer</span>
           </motion.h1>
-          
+
           <motion.p
-            className="text-xl text-white/70 mb-8"
+            className="text-xl text-white/70 mb-8 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Building beautiful digital experiences with modern technologies and a keen eye for design.
+            Crafting robust digital solutions with modern technologies and a deep understanding of system architecture.
           </motion.p>
 
           <motion.div
+            className="flex gap-6 items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
             <a 
               href="#projects"
-              className="bg-[#E94560] text-white px-8 py-3 rounded-md inline-block hover:bg-[#E94560]/90 transition-colors"
+              className="bg-[#E94560] text-white px-8 py-3 rounded-md inline-flex items-center gap-2 hover:bg-[#E94560]/90 transition-colors"
             >
-              View My Work
+              <Code2 className="w-5 h-5" />
+              View Projects
             </a>
+            <a 
+              href="/contact"
+              className="border border-[#E94560] text-white px-8 py-3 rounded-md inline-flex items-center gap-2 hover:bg-[#E94560]/10 transition-colors"
+            >
+              <Globe className="w-5 h-5" />
+              Contact Me
+            </a>
+          </motion.div>
+
+          {/* Tech stack icons */}
+          <motion.div
+            className="mt-16 flex gap-8 items-center justify-start"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            <div className="text-white/40 text-sm">Tech Stack</div>
+            <div className="h-px flex-1 bg-gradient-to-r from-[#E94560]/50 to-transparent" />
+          </motion.div>
+
+          <motion.div
+            className="mt-6 flex flex-wrap gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            {[
+              'JavaScript', 'TypeScript', 'React', 'Node.js',
+              'PostgreSQL', 'Docker', 'AWS', 'Linux'
+            ].map((tech, index) => (
+              <motion.div
+                key={tech}
+                className="px-4 py-2 bg-[#1A1A2E] rounded-md text-white/70 border border-[#16213E] hover:border-[#E94560] transition-colors"
+                whileHover={{ y: -2 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 + (index * 0.1) }}
+              >
+                {tech}
+              </motion.div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
