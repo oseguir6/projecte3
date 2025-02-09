@@ -6,11 +6,11 @@ import { Loader2 } from "lucide-react";
 import type { SiteContent } from "@shared/schema";
 
 export default function AboutForm() {
-  const { data: content = [], isLoading } = useQuery<SiteContent[]>({
+  const { data: siteContent = [], isLoading } = useQuery<SiteContent[]>({
     queryKey: ["/api/site-content"],
   });
 
-  const aboutContent = content.filter((item) => item.key.startsWith("about."));
+  const aboutContent = siteContent.filter((item) => item.key.startsWith("about."));
 
   if (isLoading) {
     return (
@@ -21,10 +21,10 @@ export default function AboutForm() {
   }
 
   const fieldLabels: Record<string, string> = {
-    "about.title": "Title",
+    "about.title": "About Page Title",
     "about.description": "Main Description",
     "about.secondary_description": "Secondary Description",
-    "about.skills": "Skills (comma-separated)",
+    "about.skills": "Skills (comma-separated list)",
   };
 
   return (
@@ -38,7 +38,7 @@ export default function AboutForm() {
             animate={{ opacity: 1, y: 0 }}
           >
             <div className="mb-2">
-              <h3 className="text-sm font-medium text-white/90">
+              <h3 className="text-sm font-medium text-white">
                 {fieldLabels[item.key] || item.key}
               </h3>
             </div>
