@@ -27,6 +27,12 @@ export default function BlogSection() {
       .replace(/\s+/g, '-');
   };
 
+  const stripHtml = (html: string) => {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  };
+
   return (
     <section className="py-20 bg-[#0A0A0A]">
       <div className="container mx-auto px-4">
@@ -81,9 +87,9 @@ export default function BlogSection() {
                     {blog.title}
                   </h3>
                   <p className="text-white/70 mb-4 line-clamp-3">
-                    {blog.content.length > 200 
-                      ? `${blog.content.substring(0, 200)}...` 
-                      : blog.content}
+                    {stripHtml(blog.content).length > 200 
+                      ? `${stripHtml(blog.content).substring(0, 200)}...` 
+                      : stripHtml(blog.content)}
                   </p>
                   <div className="flex items-center gap-4 text-sm text-white/60">
                     <div className="flex items-center gap-2">

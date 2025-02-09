@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import type { Blog } from "@shared/schema";
 import { Link, useParams } from "wouter";
+import ReactMarkdown from 'react-markdown';
 
 export default function BlogPage() {
   const { slug } = useParams();
@@ -79,9 +80,9 @@ export default function BlogPage() {
           </div>
 
           <div className="prose prose-invert max-w-none">
-            <p className="text-white/80 text-lg leading-relaxed whitespace-pre-wrap">
+            <ReactMarkdown className="text-white/80 text-lg leading-relaxed">
               {blog.content}
-            </p>
+            </ReactMarkdown>
           </div>
         </motion.article>
       </div>
