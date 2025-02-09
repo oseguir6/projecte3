@@ -64,5 +64,17 @@
     "key": "technologies.subtitle",
     "value": "Tech Stack",
     "createdAt": "2025-02-09T11:23:30.684Z"
+  },
+  {
+    "id": null,
+    "key": "technologies.list",
+    "value": "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux,Prueba",
+    "createdAt": "2025-02-09T11:27:07.758Z"
+  },
+  {
+    "id": null,
+    "key": "hero.terminal.text",
+    "value": "dev@portfolio:~$",
+    "createdAt": "2025-02-09T11:29:23.296Z"
   }
 ]

@@ -3,6 +3,11 @@ import { Terminal, Code2, Globe } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Hero() {
+  const { data: terminalText = "dev@portfolio:~$" } = useQuery({
+    queryKey: ["/api/site-content/hero.terminal.text"],
+    select: (data: any) => data.value,
+  });
+
   const { data: heroTitle = "Hola, soy Dev" } = useQuery({
     queryKey: ["/api/site-content/hero.title"],
     select: (data: any) => data.value,
@@ -72,7 +77,7 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              ~/portfolio $
+              {terminalText}
             </motion.div>
           </div>
 

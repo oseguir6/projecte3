@@ -25,6 +25,7 @@ const DEFAULT_SITE_CONTENT = {
   "hero.description": "Me especializo en crear aplicaciones web modernas y escalables",
   "hero.button.projects": "View Projects",
   "hero.button.contact": "Contact Me",
+  "hero.terminal.text": "dev@portfolio:~$",
   "technologies.title": "Tecnologías con las que trabajo",
   "technologies.subtitle": "Tech Stack",
   "technologies.list": "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux",
