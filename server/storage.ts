@@ -136,6 +136,19 @@ export class MemStorage implements IStorage {
       }
     } catch (error) {
       console.error('Error loading data:', error);
+      // If there's an error, initialize with default content
+      Object.entries(DEFAULT_SITE_CONTENT).forEach(([key, value]) => {
+        if (!this.siteContent.has(key)) {
+          const content: SiteContent = {
+            id: this.currentSiteContentId++,
+            key,
+            value,
+            createdAt: new Date()
+          };
+          this.siteContent.set(key, content);
+        }
+      });
+      this.saveData();
     }
   }
 
@@ -324,6 +337,18 @@ export class MemStorage implements IStorage {
   }
 
   async getAllSiteContent(): Promise<SiteContent[]> {
+    // Ensure all default keys exist
+    Object.entries(DEFAULT_SITE_CONTENT).forEach(([key, defaultValue]) => {
+      if (!this.siteContent.has(key)) {
+        const content: SiteContent = {
+          id: this.currentSiteContentId++,
+          key,
+          value: defaultValue,
+          createdAt: new Date()
+        };
+        this.siteContent.set(key, content);
+      }
+    });
     return Array.from(this.siteContent.values());
   }
 }
