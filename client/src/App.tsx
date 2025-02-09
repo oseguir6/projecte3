@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Helmet } from "react-helmet";
 import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
+import Footer from "@/components/Footer"; // Added import for Footer
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Projects from "@/pages/Projects";
@@ -42,10 +43,13 @@ function App() {
           <meta property="og:description" content="Curriculum web By Oriol" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Helmet>
-        <CustomCursor />
-        <Navigation />
-        <Router />
-        <Toaster />
+        <div className="min-h-screen flex flex-col">
+          <CustomCursor />
+          <Navigation />
+          <Router />
+          <Footer />
+          <Toaster />
+        </div>
       </AuthProvider>
     </QueryClientProvider>
   );
