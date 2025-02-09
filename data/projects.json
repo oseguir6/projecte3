@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "title": "aa",
+    "description": "aasdfgh",
+    "image": "https://as.com",
+    "tags": [],
+    "category": "prova",
+    "id": 2,
+    "createdAt": "2025-02-09T12:03:47.207Z"
+  }
+]

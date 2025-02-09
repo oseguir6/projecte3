@@ -23,6 +23,14 @@ export default function BlogSection() {
   return (
     <section className="py-20 bg-[#0A0A0A]">
       <div className="container mx-auto px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-bold text-white text-center mb-16"
+        >
+          Blogs
+        </motion.h1>
         <div className="text-center mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
