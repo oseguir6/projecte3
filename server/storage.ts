@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Visit, type LoginCredentials } from "@shared/schema";
+import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject } from "@shared/schema";
 import fs from "fs";
 import path from "path";
 
@@ -11,6 +11,7 @@ const ADMIN_CREDENTIALS = {
 const DATA_DIR = path.join(process.cwd(), "data");
 const CONTACTS_FILE = path.join(DATA_DIR, "contacts.json");
 const VISITS_FILE = path.join(DATA_DIR, "visits.json");
+const PROJECTS_FILE = path.join(DATA_DIR, "projects.json");
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
@@ -22,20 +23,29 @@ export interface IStorage {
   validateCredentials(credentials: LoginCredentials): Promise<boolean>;
   trackVisit(page: string): Promise<Visit>;
   getVisits(): Promise<Visit[]>;
+  createProject(project: InsertProject): Promise<Project>;
+  updateProject(id: number, project: InsertProject): Promise<Project>;
+  deleteProject(id: number): Promise<void>;
+  getProjects(): Promise<Project[]>;
+  getProject(id: number): Promise<Project | null>;
 }
 
 export class MemStorage implements IStorage {
   private contacts: Map<number, Contact>;
   private visits: Map<number, Visit>;
+  private projects: Map<number, Project>;
   private currentContactId: number;
   private currentVisitId: number;
+  private currentProjectId: number;
 
   constructor() {
     this.contacts = new Map();
     this.visits = new Map();
+    this.projects = new Map();
     this.loadData();
     this.currentContactId = Math.max(1, ...Array.from(this.contacts.keys()), 0) + 1;
     this.currentVisitId = Math.max(1, ...Array.from(this.visits.keys()), 0) + 1;
+    this.currentProjectId = Math.max(1, ...Array.from(this.projects.keys()), 0) + 1;
   }
 
   private loadData() {
@@ -55,6 +65,14 @@ export class MemStorage implements IStorage {
           this.visits.set(visit.id, visit);
         });
       }
+
+      if (fs.existsSync(PROJECTS_FILE)) {
+        const projectsData = JSON.parse(fs.readFileSync(PROJECTS_FILE, 'utf-8'));
+        projectsData.forEach((project: Project) => {
+          project.createdAt = new Date(project.createdAt!);
+          this.projects.set(project.id, project);
+        });
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -69,6 +87,10 @@ export class MemStorage implements IStorage {
       fs.writeFileSync(
         VISITS_FILE,
         JSON.stringify(Array.from(this.visits.values()), null, 2)
+      );
+      fs.writeFileSync(
+        PROJECTS_FILE,
+        JSON.stringify(Array.from(this.projects.values()), null, 2)
       );
     } catch (error) {
       console.error('Error saving data:', error);
@@ -112,6 +134,51 @@ export class MemStorage implements IStorage {
   async getVisits(): Promise<Visit[]> {
     return Array.from(this.visits.values())
       .sort((a, b) => (b.timestamp?.getTime() ?? 0) - (a.timestamp?.getTime() ?? 0));
+  }
+
+  async createProject(project: InsertProject): Promise<Project> {
+    const id = this.currentProjectId++;
+    const newProject: Project = {
+      ...project,
+      id,
+      createdAt: new Date()
+    };
+    this.projects.set(id, newProject);
+    this.saveData();
+    return newProject;
+  }
+
+  async updateProject(id: number, project: InsertProject): Promise<Project> {
+    const existingProject = this.projects.get(id);
+    if (!existingProject) {
+      throw new Error('Project not found');
+    }
+
+    const updatedProject: Project = {
+      ...project,
+      id,
+      createdAt: existingProject.createdAt
+    };
+    this.projects.set(id, updatedProject);
+    this.saveData();
+    return updatedProject;
+  }
+
+  async deleteProject(id: number): Promise<void> {
+    if (!this.projects.has(id)) {
+      throw new Error('Project not found');
+    }
+    this.projects.delete(id);
+    this.saveData();
+  }
+
+  async getProjects(): Promise<Project[]> {
+    return Array.from(this.projects.values())
+      .sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
+  }
+
+  async getProject(id: number): Promise<Project | null> {
+    return this.projects.get(id) || null;
   }
 }
 
