@@ -118,5 +118,11 @@ export const defaultSiteContent = [
   { key: "projects.title", value: "Featured Projects" },
   { key: "projects.subtitle", value: "Recent Work" },
   { key: "blog.title", value: "Latest Blog Posts" },
-  { key: "blog.subtitle", value: "Insights & Tutorials" }
+  { key: "blog.subtitle", value: "Insights & Tutorials" },
+  { key: "about.title", value: "Sobre Mí" },
+  { key: "about.subtitle", value: "Mi Historia" },
+  { key: "about.description", value: "Soy un desarrollador apasionado por crear soluciones innovadoras." },
+  { key: "about.experience", value: "Mi experiencia incluye el desarrollo de aplicaciones web modernas y escalables." },
+  { key: "about.skills", value: "React, TypeScript, Node.js, PostgreSQL, AWS" },
+  { key: "about.education", value: "Formación continua en tecnologías web modernas" }
 ];

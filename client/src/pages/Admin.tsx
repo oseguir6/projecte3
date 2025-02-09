@@ -29,6 +29,7 @@ import type { Contact, Visit, Project, Technology, Blog, SiteContent } from "@sh
 import { useState } from "react";
 import SiteContentForm from "@/components/SiteContentForm";
 import BlogForm from "@/components/BlogForm";
+import AboutForm from "@/components/AboutForm";
 
 export default function Admin() {
   const [_, setLocation] = useLocation();
@@ -384,8 +385,9 @@ export default function Admin() {
           </Card>
         </div>
 
-        <Tabs defaultValue="projects" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 max-w-[1000px]">
+        <Tabs defaultValue="about" className="w-full">
+          <TabsList className="grid w-full grid-cols-7 max-w-[1000px]">
+            <TabsTrigger value="about">About</TabsTrigger>
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="technologies">Technologies</TabsTrigger>
             <TabsTrigger value="blogs">Blogs</TabsTrigger>
@@ -394,6 +396,21 @@ export default function Admin() {
             <TabsTrigger value="messages">Messages</TabsTrigger>
           </TabsList>
 
+          <TabsContent value="about">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <CardTitle className="text-white">About Page Management</CardTitle>
+                <CardDescription>
+                  Edit content for the About page
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] pr-4">
+                  <AboutForm />
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
           <TabsContent value="projects">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>

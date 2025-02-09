@@ -45,22 +45,18 @@ export default function AboutForm() {
 
   const sections = {
     general: [
-      { key: "about.title", label: "Title" },
-      { key: "about.subtitle", label: "Subtitle" },
-      { key: "about.description", label: "Description", isLong: true },
-      { key: "about.image", label: "Profile Image URL" }
+      { key: "about.title", label: "Título" },
+      { key: "about.subtitle", label: "Subtítulo" },
+      { key: "about.description", label: "Descripción", isLong: true }
     ],
     experience: [
-      { key: "about.experience.title", label: "Experience Section Title" },
-      { key: "about.experience.description", label: "Experience Description", isLong: true }
+      { key: "about.experience", label: "Experiencia", isLong: true }
     ],
     skills: [
-      { key: "about.skills.title", label: "Skills Section Title" },
-      { key: "about.skills", label: "Skills (comma separated)", isLong: true }
+      { key: "about.skills", label: "Habilidades (separadas por comas)", isLong: true }
     ],
     education: [
-      { key: "about.education.title", label: "Education Section Title" },
-      { key: "about.education.description", label: "Education Description", isLong: true }
+      { key: "about.education", label: "Educación", isLong: true }
     ]
   };
 
@@ -74,8 +70,8 @@ export default function AboutForm() {
       {Object.entries(sections).map(([sectionName, fields]) => (
         <Card key={sectionName} className="bg-[#1A1A2E] border-[#16213E]">
           <CardHeader>
-            <CardTitle className="text-white capitalize">{sectionName} Section</CardTitle>
-            <CardDescription>Edit {sectionName} content</CardDescription>
+            <CardTitle className="text-white capitalize">{sectionName}</CardTitle>
+            <CardDescription>Editar contenido de {sectionName}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -88,6 +84,7 @@ export default function AboutForm() {
                 >
                   <SiteContentForm
                     contentKey={field.key}
+                    label={field.label}
                     initialValue={getValue(field.key)}
                     isLongText={field.isLong}
                     onSubmit={({ value }) => 
