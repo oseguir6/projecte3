@@ -1,7 +1,7 @@
 [
   {
     "title": "Blog",
-    "content": "Proba blog",
+    "content": "<h2>\nproBBA</h2>\n<ul>\n<li>aa</li>\n</ul>",
     "image": "https://example.com",
     "tags": [
       "hacking"

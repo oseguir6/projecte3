@@ -79,10 +79,11 @@ export default function BlogPage() {
             )}
           </div>
 
-          <div className="prose prose-invert max-w-none">
-            <ReactMarkdown className="text-white/80 text-lg leading-relaxed">
-              {blog.content}
-            </ReactMarkdown>
+          <div className="prose prose-invert prose-lg max-w-none">
+            <div 
+              className="text-white/80 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: blog.content }}
+            />
           </div>
         </motion.article>
       </div>
