@@ -1,10 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import type { SiteContent } from "@shared/schema";
 
 export default function About() {
-  const skills = [
-    "JavaScript", "TypeScript", "React", "Node.js",
-    "Next.js", "Tailwind CSS", "MongoDB", "PostgreSQL"
-  ];
+  const { data: content = [] } = useQuery<SiteContent[]>({
+    queryKey: ["/api/site-content"],
+  });
+
+  const getContent = (key: string) => {
+    return content.find((item) => item.key === key)?.value || "";
+  };
+
+  const skills = getContent("about.skills").split(",");
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] pt-20">
@@ -14,12 +21,15 @@ export default function About() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
+            className="relative"
           >
-            <img
-              src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2"
-              alt="Profile"
-              className="rounded-lg w-full max-w-md mx-auto"
-            />
+            <div className="aspect-square rounded-lg overflow-hidden">
+              <img
+                src={getContent("about.image") || "https://images.unsplash.com/photo-1573496799515-eebbb63814f2"}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </motion.div>
 
           <motion.div
@@ -27,19 +37,19 @@ export default function About() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h1 className="text-4xl font-bold text-white mb-6">About Me</h1>
+            <h1 className="text-4xl font-bold text-white mb-6">
+              {getContent("about.title")}
+            </h1>
             <p className="text-white/70 mb-6">
-              I'm a passionate full-stack developer with over 5 years of experience
-              in building modern web applications. I specialize in creating
-              user-friendly interfaces and scalable backend solutions.
+              {getContent("about.description")}
             </p>
             <p className="text-white/70 mb-8">
-              When I'm not coding, you can find me exploring new technologies,
-              contributing to open-source projects, or sharing knowledge through
-              technical writing.
+              {getContent("about.secondary_description")}
             </p>
 
-            <h2 className="text-2xl font-bold text-white mb-4">Skills</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">
+              {getContent("about.skills_title") || "Skills"}
+            </h2>
             <div className="flex flex-wrap gap-3">
               {skills.map((skill) => (
                 <motion.span
@@ -48,7 +58,7 @@ export default function About() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {skill}
+                  {skill.trim()}
                 </motion.span>
               ))}
             </div>

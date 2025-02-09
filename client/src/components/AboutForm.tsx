@@ -1,4 +1,3 @@
-
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
@@ -12,7 +11,7 @@ import { Input } from "./ui/input";
 
 export default function AboutForm() {
   const { toast } = useToast();
-  
+
   const { data: siteContent = [], isLoading } = useQuery<SiteContent[]>({
     queryKey: ["/api/site-content"],
   });
@@ -56,6 +55,8 @@ export default function AboutForm() {
     "about.description": "Main Description",
     "about.secondary_description": "Secondary Description",
     "about.skills": "Skills (comma-separated list)",
+    "about.skills_title": "Skills Section Title",
+    "about.image": "Profile Image URL"
   };
 
   return (
@@ -86,18 +87,19 @@ export default function AboutForm() {
                 <Textarea
                   name="value"
                   defaultValue={item.value}
-                  className="min-h-[100px]"
+                  className="min-h-[100px] bg-[#1A1A2E] border-[#16213E] text-white"
                 />
               ) : (
                 <Input
                   name="value"
                   defaultValue={item.value}
+                  className="bg-[#1A1A2E] border-[#16213E] text-white"
                 />
               )}
               <Button 
                 type="submit"
                 disabled={updateContentMutation.isPending}
-                className="w-full"
+                className="w-full bg-[#E94560] hover:bg-[#E94560]/90"
               >
                 {updateContentMutation.isPending ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
