@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject, type Technology, type InsertTechnology, type SiteContent, type InsertSiteContent } from "@shared/schema";
+import { type Contact, type InsertContact, type Visit, type LoginCredentials, type Project, type InsertProject, type Technology, type InsertTechnology, type SiteContent, type InsertSiteContent, type TimelineItem, type InsertTimelineItem } from "@shared/schema";
 import fs from "fs";
 import path from "path";
 
@@ -15,6 +15,7 @@ const PROJECTS_FILE = path.join(DATA_DIR, "projects.json");
 const TECHNOLOGIES_FILE = path.join(DATA_DIR, "technologies.json");
 const SITE_CONTENT_FILE = path.join(DATA_DIR, "site_content.json");
 const BLOGS_FILE = path.join(DATA_DIR, "blogs.json");
+const TIMELINE_FILE = path.join(DATA_DIR, "timeline.json");
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
@@ -81,6 +82,12 @@ export interface IStorage {
   deleteBlog(id: number): Promise<void>;
   getBlogs(): Promise<IBlog[]>;
   getBlog(id: number): Promise<IBlog | null>;
+  // Timeline operations
+  createTimelineItem(item: InsertTimelineItem): Promise<TimelineItem>;
+  updateTimelineItem(id: number, item: InsertTimelineItem): Promise<TimelineItem>;
+  deleteTimelineItem(id: number): Promise<void>;
+  getTimelineItems(): Promise<TimelineItem[]>;
+  getTimelineItem(id: number): Promise<TimelineItem | null>;
 }
 
 export class MemStorage implements IStorage {
@@ -90,12 +97,14 @@ export class MemStorage implements IStorage {
   private technologies: Map<number, Technology>;
   private siteContent: Map<string, SiteContent>;
   private blogs: Map<number, IBlog>;
+  private timelineItems: Map<number, TimelineItem>;
   private currentContactId: number;
   private currentVisitId: number;
   private currentProjectId: number;
   private currentTechnologyId: number;
   private currentSiteContentId: number;
   private currentBlogId: number;
+  private currentTimelineId: number;
 
   constructor() {
     this.contacts = new Map();
@@ -104,6 +113,7 @@ export class MemStorage implements IStorage {
     this.technologies = new Map();
     this.siteContent = new Map();
     this.blogs = new Map();
+    this.timelineItems = new Map();
     this.loadData();
     this.currentContactId = Math.max(1, ...Array.from(this.contacts.keys()), 0) + 1;
     this.currentVisitId = Math.max(1, ...Array.from(this.visits.keys()), 0) + 1;
@@ -111,6 +121,7 @@ export class MemStorage implements IStorage {
     this.currentTechnologyId = Math.max(1, ...Array.from(this.technologies.keys()), 0) + 1;
     this.currentSiteContentId = Math.max(1, ...Array.from(this.siteContent.keys()).map(Number), 0) + 1;
     this.currentBlogId = Math.max(1, ...Array.from(this.blogs.keys()), 0) + 1;
+    this.currentTimelineId = Math.max(1, ...Array.from(this.timelineItems.keys()), 0) + 1;
   }
 
   private loadData() {
@@ -173,6 +184,13 @@ export class MemStorage implements IStorage {
           this.blogs.set(blog.id, blog);
         });
       }
+      if (fs.existsSync(TIMELINE_FILE)) {
+        const timelineData = JSON.parse(fs.readFileSync(TIMELINE_FILE, 'utf-8'));
+        timelineData.forEach((item: TimelineItem) => {
+          item.createdAt = new Date(item.createdAt!);
+          this.timelineItems.set(item.id, item);
+        });
+      }
     } catch (error) {
       console.error('Error loading data:', error);
       // If there's an error, initialize with default content
@@ -216,6 +234,10 @@ export class MemStorage implements IStorage {
       fs.writeFileSync(
         BLOGS_FILE,
         JSON.stringify(Array.from(this.blogs.values()), null, 2)
+      );
+      fs.writeFileSync(
+        TIMELINE_FILE,
+        JSON.stringify(Array.from(this.timelineItems.values()), null, 2)
       );
     } catch (error) {
       console.error('Error saving data:', error);

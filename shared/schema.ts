@@ -107,6 +107,16 @@ export const insertBlogSchema = createInsertSchema(blogs).omit({
   published: z.boolean().default(false)
 });
 
+export const insertTimelineItemSchema = createInsertSchema(timelineItems).omit({
+  id: true,
+  createdAt: true,
+  sortOrder: true
+}).extend({
+  type: z.enum(['work', 'education', 'project', 'achievement']),
+  technologies: z.array(z.string()).optional(),
+  current: z.boolean().default(false)
+});
+
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type Contact = typeof contacts.$inferSelect;
 export type Visit = typeof visits.$inferSelect;
@@ -119,6 +129,8 @@ export type InsertSiteContent = z.infer<typeof insertSiteContentSchema>;
 export type SiteContent = typeof siteContent.$inferSelect;
 export type InsertBlog = z.infer<typeof insertBlogSchema>;
 export type Blog = typeof blogs.$inferSelect;
+export type InsertTimelineItem = z.infer<typeof insertTimelineItemSchema>;
+export type TimelineItem = typeof timelineItems.$inferSelect;
 
 export const defaultSiteContent = [
   { key: "hero.terminal.text", value: "dev@portfolio:~$" },
