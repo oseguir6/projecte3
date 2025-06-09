@@ -1051,6 +1051,37 @@ export default function Admin() {
           </DialogContent>
         </Dialog>
 
+        {/* Timeline Dialog */}
+        <Dialog open={isTimelineModalOpen} onOpenChange={setIsTimelineModalOpen}>
+          <DialogContent className="bg-[#1A1A2E] border-[#16213E] text-white max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>
+                {selectedTimelineItem ? "Edit Timeline Item" : "Add New Timeline Item"}
+              </DialogTitle>
+              <DialogDescription>
+                {selectedTimelineItem 
+                  ? "Update the timeline item information below."
+                  : "Add a new milestone to your professional timeline."
+                }
+              </DialogDescription>
+            </DialogHeader>
+            <TimelineForm
+              initialData={selectedTimelineItem || undefined}
+              onSubmit={(data) => {
+                if (selectedTimelineItem) {
+                  updateTimelineMutation.mutate({ id: selectedTimelineItem.id, data });
+                } else {
+                  createTimelineMutation.mutate(data);
+                }
+              }}
+              onCancel={() => {
+                setIsTimelineModalOpen(false);
+                setSelectedTimelineItem(null);
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+
         {/* Blog Dialog */}
         <Dialog open={isBlogModalOpen} onOpenChange={setIsBlogModalOpen}>
           <DialogContent className="bg-[#1A1A2E] border-[#16213E] text-white max-w-4xl">

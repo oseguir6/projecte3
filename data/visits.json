@@ -9898,5 +9898,560 @@
     "id": 1981,
     "page": "/src/components/ui/switch.tsx",
     "timestamp": "2025-06-09T14:46:40.411Z"
+  },
+  {
+    "id": 1982,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-06-09T14:47:06.724Z"
+  },
+  {
+    "id": 1983,
+    "page": "/src/index.css",
+    "timestamp": "2025-06-09T14:47:06.730Z"
+  },
+  {
+    "id": 1984,
+    "page": "/src/components/TimelineForm.tsx",
+    "timestamp": "2025-06-09T14:47:07.641Z"
+  },
+  {
+    "id": 1985,
+    "page": "/src/components/ui/select.tsx",
+    "timestamp": "2025-06-09T14:47:07.833Z"
+  },
+  {
+    "id": 1986,
+    "page": "/src/components/ui/checkbox.tsx",
+    "timestamp": "2025-06-09T14:47:07.839Z"
+  },
+  {
+    "id": 1987,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js",
+    "timestamp": "2025-06-09T14:47:07.993Z"
+  },
+  {
+    "id": 1988,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-checkbox.js",
+    "timestamp": "2025-06-09T14:47:08.001Z"
+  },
+  {
+    "id": 1989,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AY7UQYXJ.js",
+    "timestamp": "2025-06-09T14:47:08.711Z"
+  },
+  {
+    "id": 1990,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-TJUGCIGG.js",
+    "timestamp": "2025-06-09T14:47:08.717Z"
+  },
+  {
+    "id": 1991,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-NMXYYE3D.js",
+    "timestamp": "2025-06-09T14:47:08.723Z"
+  },
+  {
+    "id": 1992,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-U3PVDGQW.js",
+    "timestamp": "2025-06-09T14:47:08.728Z"
+  },
+  {
+    "id": 1993,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js",
+    "timestamp": "2025-06-09T14:47:08.736Z"
+  },
+  {
+    "id": 1994,
+    "page": "/",
+    "timestamp": "2025-06-09T14:47:08.860Z"
+  },
+  {
+    "id": 1995,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js",
+    "timestamp": "2025-06-09T14:47:08.967Z"
+  },
+  {
+    "id": 1996,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js",
+    "timestamp": "2025-06-09T14:47:08.974Z"
+  },
+  {
+    "id": 1997,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-KBTYAULA.js",
+    "timestamp": "2025-06-09T14:47:08.989Z"
+  },
+  {
+    "id": 1998,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-QCHXOAYK.js",
+    "timestamp": "2025-06-09T14:47:08.994Z"
+  },
+  {
+    "id": 1999,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-WOOG5QLI.js",
+    "timestamp": "2025-06-09T14:47:09.001Z"
+  },
+  {
+    "id": 2000,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-WWMHCPRN.js",
+    "timestamp": "2025-06-09T14:47:09.442Z"
+  },
+  {
+    "id": 2001,
+    "page": "/@vite/client",
+    "timestamp": "2025-06-09T14:47:09.712Z"
+  },
+  {
+    "id": 2002,
+    "page": "/src/main.tsx",
+    "timestamp": "2025-06-09T14:47:09.754Z"
+  },
+  {
+    "id": 2003,
+    "page": "/@react-refresh",
+    "timestamp": "2025-06-09T14:47:10.444Z"
+  },
+  {
+    "id": 2004,
+    "page": "/@fs/home/runner/workspace/node_modules/vite/dist/client/env.mjs",
+    "timestamp": "2025-06-09T14:47:10.452Z"
+  },
+  {
+    "id": 2005,
+    "page": "/src/index.css",
+    "timestamp": "2025-06-09T14:47:10.459Z"
+  },
+  {
+    "id": 2006,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/react_jsx-dev-runtime.js",
+    "timestamp": "2025-06-09T14:47:10.464Z"
+  },
+  {
+    "id": 2007,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/react-dom_client.js",
+    "timestamp": "2025-06-09T14:47:10.473Z"
+  },
+  {
+    "id": 2008,
+    "page": "/src/App.tsx",
+    "timestamp": "2025-06-09T14:47:10.479Z"
+  },
+  {
+    "id": 2009,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js",
+    "timestamp": "2025-06-09T14:47:10.633Z"
+  },
+  {
+    "id": 2010,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-WOOG5QLI.js",
+    "timestamp": "2025-06-09T14:47:10.644Z"
+  },
+  {
+    "id": 2011,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-QCHXOAYK.js",
+    "timestamp": "2025-06-09T14:47:10.649Z"
+  },
+  {
+    "id": 2012,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js",
+    "timestamp": "2025-06-09T14:47:10.792Z"
+  },
+  {
+    "id": 2013,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js",
+    "timestamp": "2025-06-09T14:47:10.801Z"
+  },
+  {
+    "id": 2014,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/react-helmet.js",
+    "timestamp": "2025-06-09T14:47:10.910Z"
+  },
+  {
+    "id": 2015,
+    "page": "/src/lib/queryClient.ts",
+    "timestamp": "2025-06-09T14:47:10.965Z"
+  },
+  {
+    "id": 2016,
+    "page": "/src/components/ui/toaster.tsx",
+    "timestamp": "2025-06-09T14:47:10.971Z"
+  },
+  {
+    "id": 2017,
+    "page": "/src/components/Navigation.tsx",
+    "timestamp": "2025-06-09T14:47:11.053Z"
+  },
+  {
+    "id": 2018,
+    "page": "/src/components/CustomCursor.tsx",
+    "timestamp": "2025-06-09T14:47:11.070Z"
+  },
+  {
+    "id": 2019,
+    "page": "/src/components/Footer.tsx",
+    "timestamp": "2025-06-09T14:47:11.122Z"
+  },
+  {
+    "id": 2020,
+    "page": "/src/pages/Home.tsx",
+    "timestamp": "2025-06-09T14:47:11.129Z"
+  },
+  {
+    "id": 2021,
+    "page": "/src/pages/About.tsx",
+    "timestamp": "2025-06-09T14:47:11.217Z"
+  },
+  {
+    "id": 2022,
+    "page": "/src/pages/Projects.tsx",
+    "timestamp": "2025-06-09T14:47:11.238Z"
+  },
+  {
+    "id": 2023,
+    "page": "/src/pages/Contact.tsx",
+    "timestamp": "2025-06-09T14:47:11.270Z"
+  },
+  {
+    "id": 2024,
+    "page": "/src/pages/Login.tsx",
+    "timestamp": "2025-06-09T14:47:11.279Z"
+  },
+  {
+    "id": 2025,
+    "page": "/src/pages/Admin.tsx",
+    "timestamp": "2025-06-09T14:47:11.290Z"
+  },
+  {
+    "id": 2026,
+    "page": "/src/pages/BlogPage.tsx",
+    "timestamp": "2025-06-09T14:47:11.387Z"
+  },
+  {
+    "id": 2027,
+    "page": "/src/pages/Timeline.tsx",
+    "timestamp": "2025-06-09T14:47:11.401Z"
+  },
+  {
+    "id": 2028,
+    "page": "/src/pages/not-found.tsx",
+    "timestamp": "2025-06-09T14:47:11.452Z"
+  },
+  {
+    "id": 2029,
+    "page": "/src/hooks/use-auth.tsx",
+    "timestamp": "2025-06-09T14:47:11.460Z"
+  },
+  {
+    "id": 2030,
+    "page": "/src/lib/protected-route.tsx",
+    "timestamp": "2025-06-09T14:47:11.477Z"
+  },
+  {
+    "id": 2031,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-KBTYAULA.js",
+    "timestamp": "2025-06-09T14:47:11.544Z"
+  },
+  {
+    "id": 2032,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JZFGAL4V.js",
+    "timestamp": "2025-06-09T14:47:11.558Z"
+  },
+  {
+    "id": 2033,
+    "page": "/src/hooks/use-toast.ts",
+    "timestamp": "2025-06-09T14:47:11.625Z"
+  },
+  {
+    "id": 2034,
+    "page": "/src/components/ui/toast.tsx",
+    "timestamp": "2025-06-09T14:47:11.633Z"
+  },
+  {
+    "id": 2035,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/framer-motion.js",
+    "timestamp": "2025-06-09T14:47:11.665Z"
+  },
+  {
+    "id": 2036,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/lucide-react.js",
+    "timestamp": "2025-06-09T14:47:11.701Z"
+  },
+  {
+    "id": 2037,
+    "page": "/src/lib/utils.ts",
+    "timestamp": "2025-06-09T14:47:11.715Z"
+  },
+  {
+    "id": 2038,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/react.js",
+    "timestamp": "2025-06-09T14:47:11.797Z"
+  },
+  {
+    "id": 2039,
+    "page": "/src/components/Hero.tsx",
+    "timestamp": "2025-06-09T14:47:11.851Z"
+  },
+  {
+    "id": 2040,
+    "page": "/src/components/ProjectCard.tsx",
+    "timestamp": "2025-06-09T14:47:11.856Z"
+  },
+  {
+    "id": 2041,
+    "page": "/src/components/BlogSection.tsx",
+    "timestamp": "2025-06-09T14:47:11.876Z"
+  },
+  {
+    "id": 2042,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/react-hook-form.js",
+    "timestamp": "2025-06-09T14:47:11.884Z"
+  },
+  {
+    "id": 2043,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@hookform_resolvers_zod.js",
+    "timestamp": "2025-06-09T14:47:11.954Z"
+  },
+  {
+    "id": 2044,
+    "page": "/@fs/home/runner/workspace/shared/schema.ts",
+    "timestamp": "2025-06-09T14:47:12.009Z"
+  },
+  {
+    "id": 2045,
+    "page": "/src/components/ui/form.tsx",
+    "timestamp": "2025-06-09T14:47:12.017Z"
+  },
+  {
+    "id": 2046,
+    "page": "/src/components/ui/input.tsx",
+    "timestamp": "2025-06-09T14:47:12.045Z"
+  },
+  {
+    "id": 2047,
+    "page": "/src/components/ui/textarea.tsx",
+    "timestamp": "2025-06-09T14:47:12.053Z"
+  },
+  {
+    "id": 2048,
+    "page": "/src/components/ui/button.tsx",
+    "timestamp": "2025-06-09T14:47:12.108Z"
+  },
+  {
+    "id": 2049,
+    "page": "/src/components/ui/card.tsx",
+    "timestamp": "2025-06-09T14:47:12.167Z"
+  },
+  {
+    "id": 2050,
+    "page": "/src/components/ProjectForm.tsx",
+    "timestamp": "2025-06-09T14:47:12.174Z"
+  },
+  {
+    "id": 2051,
+    "page": "/src/components/TechnologyForm.tsx",
+    "timestamp": "2025-06-09T14:47:12.229Z"
+  },
+  {
+    "id": 2052,
+    "page": "/src/components/TimelineForm.tsx",
+    "timestamp": "2025-06-09T14:47:12.236Z"
+  },
+  {
+    "id": 2053,
+    "page": "/src/components/ui/dialog.tsx",
+    "timestamp": "2025-06-09T14:47:12.265Z"
+  },
+  {
+    "id": 2054,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/recharts.js",
+    "timestamp": "2025-06-09T14:47:12.330Z"
+  },
+  {
+    "id": 2055,
+    "page": "/src/components/ui/scroll-area.tsx",
+    "timestamp": "2025-06-09T14:47:12.342Z"
+  },
+  {
+    "id": 2056,
+    "page": "/src/components/ui/tabs.tsx",
+    "timestamp": "2025-06-09T14:47:12.409Z"
+  },
+  {
+    "id": 2057,
+    "page": "/src/components/SiteContentForm.tsx",
+    "timestamp": "2025-06-09T14:47:12.417Z"
+  },
+  {
+    "id": 2058,
+    "page": "/src/components/BlogForm.tsx",
+    "timestamp": "2025-06-09T14:47:12.422Z"
+  },
+  {
+    "id": 2059,
+    "page": "/src/components/AboutForm.tsx",
+    "timestamp": "2025-06-09T14:47:12.501Z"
+  },
+  {
+    "id": 2060,
+    "page": "/src/components/Timeline.tsx",
+    "timestamp": "2025-06-09T14:47:12.573Z"
+  },
+  {
+    "id": 2061,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-toast.js",
+    "timestamp": "2025-06-09T14:47:12.582Z"
+  },
+  {
+    "id": 2062,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/class-variance-authority.js",
+    "timestamp": "2025-06-09T14:47:12.588Z"
+  },
+  {
+    "id": 2063,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/clsx.js",
+    "timestamp": "2025-06-09T14:47:12.656Z"
+  },
+  {
+    "id": 2064,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/tailwind-merge.js",
+    "timestamp": "2025-06-09T14:47:12.744Z"
+  },
+  {
+    "id": 2065,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/drizzle-orm_pg-core.js",
+    "timestamp": "2025-06-09T14:47:12.750Z"
+  },
+  {
+    "id": 2066,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js",
+    "timestamp": "2025-06-09T14:47:12.756Z"
+  },
+  {
+    "id": 2067,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/drizzle-zod.js",
+    "timestamp": "2025-06-09T14:47:12.855Z"
+  },
+  {
+    "id": 2068,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/zod.js",
+    "timestamp": "2025-06-09T14:47:12.901Z"
+  },
+  {
+    "id": 2069,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-slot.js",
+    "timestamp": "2025-06-09T14:47:12.924Z"
+  },
+  {
+    "id": 2070,
+    "page": "/src/components/ui/label.tsx",
+    "timestamp": "2025-06-09T14:47:12.929Z"
+  },
+  {
+    "id": 2071,
+    "page": "/src/components/ui/checkbox.tsx",
+    "timestamp": "2025-06-09T14:47:13.057Z"
+  },
+  {
+    "id": 2072,
+    "page": "/src/components/ui/select.tsx",
+    "timestamp": "2025-06-09T14:47:13.062Z"
+  },
+  {
+    "id": 2073,
+    "page": "/src/components/ui/badge.tsx",
+    "timestamp": "2025-06-09T14:47:13.076Z"
+  },
+  {
+    "id": 2074,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-dialog.js",
+    "timestamp": "2025-06-09T14:47:13.081Z"
+  },
+  {
+    "id": 2075,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-scroll-area.js",
+    "timestamp": "2025-06-09T14:47:13.086Z"
+  },
+  {
+    "id": 2076,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tabs.js",
+    "timestamp": "2025-06-09T14:47:13.185Z"
+  },
+  {
+    "id": 2077,
+    "page": "/src/components/ui/switch.tsx",
+    "timestamp": "2025-06-09T14:47:13.230Z"
+  },
+  {
+    "id": 2078,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-WWMHCPRN.js",
+    "timestamp": "2025-06-09T14:47:13.236Z"
+  },
+  {
+    "id": 2079,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js",
+    "timestamp": "2025-06-09T14:47:13.242Z"
+  },
+  {
+    "id": 2080,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-3CDCW2FW.js",
+    "timestamp": "2025-06-09T14:47:13.248Z"
+  },
+  {
+    "id": 2081,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js",
+    "timestamp": "2025-06-09T14:47:13.256Z"
+  },
+  {
+    "id": 2082,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-U7P2NEEE.js",
+    "timestamp": "2025-06-09T14:47:13.344Z"
+  },
+  {
+    "id": 2083,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-K5E7SR3C.js",
+    "timestamp": "2025-06-09T14:47:13.385Z"
+  },
+  {
+    "id": 2084,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-V444TFVM.js",
+    "timestamp": "2025-06-09T14:47:13.395Z"
+  },
+  {
+    "id": 2085,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-label.js",
+    "timestamp": "2025-06-09T14:47:13.402Z"
+  },
+  {
+    "id": 2086,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-checkbox.js",
+    "timestamp": "2025-06-09T14:47:13.408Z"
+  },
+  {
+    "id": 2087,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js",
+    "timestamp": "2025-06-09T14:47:13.414Z"
+  },
+  {
+    "id": 2088,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-FESJFFGF.js",
+    "timestamp": "2025-06-09T14:47:13.500Z"
+  },
+  {
+    "id": 2089,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-E3AZ4UAP.js",
+    "timestamp": "2025-06-09T14:47:13.565Z"
+  },
+  {
+    "id": 2090,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-6ZMM2PAV.js",
+    "timestamp": "2025-06-09T14:47:13.572Z"
+  },
+  {
+    "id": 2091,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-SGSAFNPX.js",
+    "timestamp": "2025-06-09T14:47:13.578Z"
+  },
+  {
+    "id": 2092,
+    "page": "/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-switch.js",
+    "timestamp": "2025-06-09T14:47:13.584Z"
   }
 ]
