@@ -65,7 +65,6 @@ export default function Admin() {
     queryKey: ["/api/site-content"],
   });
 
-
   const createProjectMutation = useMutation({
     mutationFn: async (data: any) => {
       await apiRequest("POST", "/api/admin/projects", data);
@@ -194,61 +193,6 @@ export default function Admin() {
     },
   });
 
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await apiRequest("POST", "/api/logout");
-    },
-    onSuccess: () => {
-      queryClient.clear();
-      toast({
-        title: "Logged out",
-        description: "You have been logged out successfully",
-      });
-      setLocation("/login");
-    },
-  });
-
-  const handleProjectSubmit = (data: any) => {
-    if (selectedProject) {
-      updateProjectMutation.mutate({ id: selectedProject.id, data });
-    } else {
-      createProjectMutation.mutate(data);
-    }
-  };
-
-  const handleTechnologySubmit = (data: any) => {
-    if (selectedTechnology) {
-      updateTechnologyMutation.mutate({ id: selectedTechnology.id, data });
-    } else {
-      createTechnologyMutation.mutate(data);
-    }
-  };
-
-  const updateSiteContentMutation = useMutation({
-    mutationFn: async ({ key, value }: { key: string; value: string }) => {
-      const response = await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to update content');
-      }
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });
-      toast({
-        title: "Success",
-        description: "Content updated successfully",
-      });
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to update content",
-        variant: "destructive",
-      });
-    },
-  });
-
   const createBlogMutation = useMutation({
     mutationFn: async (data: any) => {
       await apiRequest("POST", "/api/admin/blogs", data);
@@ -310,6 +254,40 @@ export default function Admin() {
         description: "Failed to delete blog post",
         variant: "destructive",
       });
+    },
+  });
+
+  const updateSiteContentMutation = useMutation({
+    mutationFn: async ({ key, value }: { key: string; value: string }) => {
+      await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/site-content"] });
+      toast({
+        title: "Success",
+        description: "Content updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update content",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/logout");
+    },
+    onSuccess: () => {
+      queryClient.clear();
+      toast({
+        title: "Logged out",
+        description: "You have been logged out successfully",
+      });
+      setLocation("/login");
     },
   });
 
@@ -411,6 +389,7 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="projects">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
@@ -443,15 +422,13 @@ export default function Admin() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <div className="flex justify-between items-start mb-2">
+                        <div className="flex justify-between items-start">
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white">
+                            <h3 className="text-lg font-semibold text-white mb-2">
                               {project.title}
                             </h3>
-                            <p className="text-white/70 mt-1">
-                              {project.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-2">
+                            <p className="text-white/70 mb-3">{project.description}</p>
+                            <div className="flex flex-wrap gap-2">
                               {project.tags.map((tag) => (
                                 <span
                                   key={tag}
@@ -483,13 +460,15 @@ export default function Admin() {
                             </Button>
                           </div>
                         </div>
-                        <div className="aspect-[2/1] overflow-hidden rounded-lg mt-4">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                        {project.image && (
+                          <div className="aspect-video overflow-hidden rounded-lg mt-4">
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
                       </motion.div>
                     ))}
                   </div>
@@ -497,6 +476,7 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="technologies">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
@@ -566,6 +546,7 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="blogs">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
@@ -573,7 +554,7 @@ export default function Admin() {
                   <div>
                     <CardTitle className="text-white">Blog Management</CardTitle>
                     <CardDescription>
-                      Manage your blog posts
+                      Manage your blog posts and articles
                     </CardDescription>
                   </div>
                   <Button
@@ -665,6 +646,7 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="content">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
@@ -699,6 +681,7 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="analytics">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
@@ -748,6 +731,7 @@ export default function Admin() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="messages">
             <Card className="bg-[#1A1A2E] border-[#16213E]">
               <CardHeader>
@@ -786,6 +770,99 @@ export default function Admin() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Technology Dialog */}
+        <Dialog open={isTechnologyModalOpen} onOpenChange={setIsTechnologyModalOpen}>
+          <DialogContent className="bg-[#1A1A2E] border-[#16213E] text-white">
+            <DialogHeader>
+              <DialogTitle>
+                {selectedTechnology ? "Edit Technology" : "Add New Technology"}
+              </DialogTitle>
+              <DialogDescription>
+                {selectedTechnology 
+                  ? "Update the technology information below."
+                  : "Add a new technology to your tech stack."
+                }
+              </DialogDescription>
+            </DialogHeader>
+            <TechnologyForm
+              initialData={selectedTechnology || undefined}
+              onSubmit={(data) => {
+                if (selectedTechnology) {
+                  updateTechnologyMutation.mutate({ id: selectedTechnology.id, data });
+                } else {
+                  createTechnologyMutation.mutate(data);
+                }
+              }}
+              onCancel={() => {
+                setIsTechnologyModalOpen(false);
+                setSelectedTechnology(null);
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+
+        {/* Project Dialog */}
+        <Dialog open={isProjectModalOpen} onOpenChange={setIsProjectModalOpen}>
+          <DialogContent className="bg-[#1A1A2E] border-[#16213E] text-white">
+            <DialogHeader>
+              <DialogTitle>
+                {selectedProject ? "Edit Project" : "Add New Project"}
+              </DialogTitle>
+              <DialogDescription>
+                {selectedProject 
+                  ? "Update the project information below."
+                  : "Add a new project to your portfolio."
+                }
+              </DialogDescription>
+            </DialogHeader>
+            <ProjectForm
+              initialData={selectedProject || undefined}
+              onSubmit={(data) => {
+                if (selectedProject) {
+                  updateProjectMutation.mutate({ id: selectedProject.id, data });
+                } else {
+                  createProjectMutation.mutate(data);
+                }
+              }}
+              onCancel={() => {
+                setIsProjectModalOpen(false);
+                setSelectedProject(null);
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+
+        {/* Blog Dialog */}
+        <Dialog open={isBlogModalOpen} onOpenChange={setIsBlogModalOpen}>
+          <DialogContent className="bg-[#1A1A2E] border-[#16213E] text-white max-w-4xl">
+            <DialogHeader>
+              <DialogTitle>
+                {selectedBlog ? "Edit Blog Post" : "Add New Blog Post"}
+              </DialogTitle>
+              <DialogDescription>
+                {selectedBlog 
+                  ? "Update the blog post information below."
+                  : "Create a new blog post."
+                }
+              </DialogDescription>
+            </DialogHeader>
+            <BlogForm
+              initialData={selectedBlog || undefined}
+              onSubmit={(data) => {
+                if (selectedBlog) {
+                  updateBlogMutation.mutate({ id: selectedBlog.id, data });
+                } else {
+                  createBlogMutation.mutate(data);
+                }
+              }}
+              onCancel={() => {
+                setIsBlogModalOpen(false);
+                setSelectedBlog(null);
+              }}
+            />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
