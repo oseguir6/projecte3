@@ -115,6 +115,7 @@ export const defaultSiteContent = [
   { key: "technologies.title", value: "Technologies" },
   { key: "technologies.subtitle", value: "Tech Stack" },
   { key: "technologies.description", value: "Here are some of the technologies I work with:" },
+  { key: "technologies.list", value: "JavaScript,TypeScript,React,Node.js,Python" },
   { key: "projects.title", value: "Featured Projects" },
   { key: "projects.subtitle", value: "Recent Work" },
   { key: "blog.title", value: "Latest Blog Posts" },

@@ -478,73 +478,110 @@ export default function Admin() {
           </TabsContent>
 
           <TabsContent value="technologies">
-            <Card className="bg-[#1A1A2E] border-[#16213E]">
-              <CardHeader>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <CardTitle className="text-white">Technologies Management</CardTitle>
-                    <CardDescription>
-                      Manage your services and tech stack
-                    </CardDescription>
+            <div className="space-y-6">
+              {/* Tech Stack Content Management */}
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <CardTitle className="text-white">Tech Stack Content</CardTitle>
+                  <CardDescription>
+                    Edit the title, subtitle and description for your tech stack section
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {siteContent
+                      .filter(content => content.key.startsWith('technologies.'))
+                      .map((content) => (
+                        <motion.div
+                          key={content.key}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <SiteContentForm
+                            contentKey={content.key}
+                            initialValue={content.value}
+                            isLongText={content.key.includes("description") || content.key.includes("list")}
+                            onSubmit={({ value }) =>
+                              updateSiteContentMutation.mutate({ key: content.key, value })
+                            }
+                            onCancel={() => {}}
+                          />
+                        </motion.div>
+                      ))}
                   </div>
-                  <Button
-                    onClick={() => {
-                      setSelectedTechnology(null);
-                      setIsTechnologyModalOpen(true);
-                    }}
-                    className="bg-[#E94560] hover:bg-[#E94560]/90"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add New Technology
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-[600px] pr-4">
-                  <div className="space-y-4">
-                    {technologies.map((tech) => (
-                      <motion.div
-                        key={tech.id}
-                        className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3">
-                              <div className="text-[#E94560]" dangerouslySetInnerHTML={{ __html: tech.icon }} />
-                              <h3 className="text-lg font-semibold text-white">
-                                {tech.name}
-                              </h3>
+                </CardContent>
+              </Card>
+
+              {/* Individual Technologies Management */}
+              <Card className="bg-[#1A1A2E] border-[#16213E]">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <CardTitle className="text-white">Individual Technologies</CardTitle>
+                      <CardDescription>
+                        Manage your specific technologies with icons
+                      </CardDescription>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        setSelectedTechnology(null);
+                        setIsTechnologyModalOpen(true);
+                      }}
+                      className="bg-[#E94560] hover:bg-[#E94560]/90"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add New Technology
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[500px] pr-4">
+                    <div className="space-y-4">
+                      {technologies.map((tech) => (
+                        <motion.div
+                          key={tech.id}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3">
+                                <div className="text-[#E94560]" dangerouslySetInnerHTML={{ __html: tech.icon }} />
+                                <h3 className="text-lg font-semibold text-white">
+                                  {tech.name}
+                                </h3>
+                              </div>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => {
+                                  setSelectedTechnology(tech);
+                                  setIsTechnologyModalOpen(true);
+                                }}
+                                className="border-[#E94560] hover:bg-[#E94560]/10"
+                              >
+                                <Pencil className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="destructive"
+                                size="icon"
+                                onClick={() => deleteTechnologyMutation.mutate(tech.id)}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
                             </div>
                           </div>
-                          <div className="flex gap-2">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              onClick={() => {
-                                setSelectedTechnology(tech);
-                                setIsTechnologyModalOpen(true);
-                              }}
-                              className="border-[#E94560] hover:bg-[#E94560]/10"
-                            >
-                              <Pencil className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              variant="destructive"
-                              size="icon"
-                              onClick={() => deleteTechnologyMutation.mutate(tech.id)}
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="blogs">

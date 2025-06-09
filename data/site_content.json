@@ -2,91 +2,79 @@
   {
     "id": null,
     "key": "hero.title",
-    "value": "Hola, soy vwolf",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "value": "Hola, soy Dev",
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "hero.subtitle",
     "value": "Desarrollador Full Stack",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "hero.description",
     "value": "Me especializo en crear aplicaciones web modernas y escalables",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "hero.button.projects",
     "value": "View Projects",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "hero.button.contact",
     "value": "Contact Me",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "hero.terminal.text",
     "value": "dev@portfolio:~$",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "technologies.title",
     "value": "Tecnologías con las que trabajo",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "technologies.subtitle",
     "value": "Tech Stack",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "technologies.list",
     "value": "JavaScript,TypeScript,React,Node.js,PostgreSQL,Docker,AWS,Linux",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "projects.title",
     "value": "Proyectos Destacados",
-    "createdAt": "2025-02-09T13:27:58.050Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "projects.subtitle",
     "value": "Algunos de mis trabajos más recientes",
-    "createdAt": "2025-02-09T13:27:58.051Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "contact.title",
     "value": "Contacto",
-    "createdAt": "2025-02-09T13:27:58.051Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   },
   {
     "id": null,
     "key": "contact.description",
     "value": "¿Tienes un proyecto en mente? ¡Hablemos!",
-    "createdAt": "2025-02-09T13:27:58.051Z"
-  },
-  {
-    "id": null,
-    "key": "about.title",
-    "value": "Oriol",
-    "createdAt": "2025-02-09T13:37:01.324Z"
-  },
-  {
-    "id": null,
-    "key": "about.experience",
-    "value": "<h2>prueba</h2><ul><li>a</li></ul>",
-    "createdAt": "2025-02-09T14:16:45.497Z"
+    "createdAt": "2025-06-09T13:52:12.864Z"
   }
 ]
