@@ -18,6 +18,7 @@ export default function Navigation() {
     { href: "/", label: "Inicio" },
     { href: "/about", label: "Sobre mí" },
     { href: "/projects", label: "Proyectos" },
+    { href: "/timeline", label: "Trayectoria" },
     { href: "/contact", label: "Contacto" }
   ];
 

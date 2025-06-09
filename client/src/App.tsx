@@ -13,6 +13,7 @@ import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
 import Admin from "@/pages/Admin";
 import BlogPage from "@/pages/BlogPage";
+import TimelinePage from "@/pages/Timeline";
 import NotFound from "@/pages/not-found";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/projects" component={Projects} />
+      <Route path="/timeline" component={TimelinePage} />
       <Route path="/contact" component={Contact} />
       <Route path="/login" component={Login} />
       <Route path="/blogs/:slug" component={BlogPage} />

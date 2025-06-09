@@ -50,6 +50,21 @@ export const blogs = pgTable("blogs", {
   createdAt: timestamp("created_at").defaultNow()
 });
 
+export const timelineItems = pgTable("timeline_items", {
+  id: serial("id").primaryKey(),
+  type: text("type").notNull(), // 'work', 'education', 'project', 'achievement'
+  title: text("title").notNull(),
+  organization: text("organization").notNull(),
+  location: text("location"),
+  startDate: text("start_date").notNull(),
+  endDate: text("end_date"),
+  description: text("description").notNull(),
+  technologies: text("technologies").array(),
+  current: boolean("current").notNull().default(false),
+  sortOrder: serial("sort_order"),
+  createdAt: timestamp("created_at").defaultNow()
+});
+
 export const insertContactSchema = createInsertSchema(contacts).omit({
   id: true,
   createdAt: true
