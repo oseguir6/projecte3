@@ -21,7 +21,7 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
 }
 
-const DEFAULT_SITE_CONTENT = {
+const DEFAULT_SITE_CONTENT: Record<string, string> = {
   "hero.title": "Hola, soy Dev",
   "hero.subtitle": "Desarrollador Full Stack",
   "hero.description": "Me especializo en crear aplicaciones web modernas y escalables",
@@ -460,6 +460,59 @@ export class MemStorage implements IStorage {
 
   async getBlog(id: number): Promise<IBlog | null> {
     return this.blogs.get(id) || null;
+  }
+
+  // Timeline methods
+  async createTimelineItem(item: InsertTimelineItem): Promise<TimelineItem> {
+    const id = this.currentTimelineId++;
+    const newItem: TimelineItem = {
+      ...item,
+      id,
+      sortOrder: id,
+      technologies: item.technologies || null,
+      location: item.location || null,
+      endDate: item.endDate || null,
+      createdAt: new Date()
+    };
+    this.timelineItems.set(id, newItem);
+    this.saveData();
+    return newItem;
+  }
+
+  async updateTimelineItem(id: number, item: InsertTimelineItem): Promise<TimelineItem> {
+    const existingItem = this.timelineItems.get(id);
+    if (!existingItem) {
+      throw new Error('Timeline item not found');
+    }
+    const updatedItem: TimelineItem = {
+      ...item,
+      id,
+      sortOrder: existingItem.sortOrder,
+      technologies: item.technologies || null,
+      location: item.location || null,
+      endDate: item.endDate || null,
+      createdAt: existingItem.createdAt
+    };
+    this.timelineItems.set(id, updatedItem);
+    this.saveData();
+    return updatedItem;
+  }
+
+  async deleteTimelineItem(id: number): Promise<void> {
+    if (!this.timelineItems.has(id)) {
+      throw new Error('Timeline item not found');
+    }
+    this.timelineItems.delete(id);
+    this.saveData();
+  }
+
+  async getTimelineItems(): Promise<TimelineItem[]> {
+    return Array.from(this.timelineItems.values())
+      .sort((a, b) => (b.sortOrder ?? 0) - (a.sortOrder ?? 0));
+  }
+
+  async getTimelineItem(id: number): Promise<TimelineItem | null> {
+    return this.timelineItems.get(id) || null;
   }
 }
 

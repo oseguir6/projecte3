@@ -2,72 +2,8 @@ import { motion } from "framer-motion";
 import { Calendar, MapPin, Building, GraduationCap, Code, Award } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-interface TimelineItem {
-  id: string;
-  type: 'work' | 'education' | 'project' | 'achievement';
-  title: string;
-  organization: string;
-  location?: string;
-  startDate: string;
-  endDate?: string;
-  description: string;
-  technologies?: string[];
-  current?: boolean;
-}
-
-const timelineData: TimelineItem[] = [
-  {
-    id: "1",
-    type: "work",
-    title: "Senior Frontend Developer",
-    organization: "Tech Company",
-    location: "Remote",
-    startDate: "2023-01",
-    description: "Leading frontend development for multiple web applications using React and TypeScript. Implementing modern UI/UX patterns and performance optimizations.",
-    technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
-    current: true
-  },
-  {
-    id: "2",
-    type: "project",
-    title: "E-commerce Platform",
-    organization: "Personal Project",
-    startDate: "2022-08",
-    endDate: "2022-12",
-    description: "Built a full-stack e-commerce platform with payment integration, inventory management, and admin dashboard.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"]
-  },
-  {
-    id: "3",
-    type: "work",
-    title: "Frontend Developer",
-    organization: "Startup Inc",
-    location: "Madrid, Spain",
-    startDate: "2021-06",
-    endDate: "2022-12",
-    description: "Developed responsive web applications and collaborated with design team to implement pixel-perfect interfaces.",
-    technologies: ["Vue.js", "JavaScript", "SCSS", "Figma"]
-  },
-  {
-    id: "4",
-    type: "education",
-    title: "Computer Science Degree",
-    organization: "Universidad Politécnica",
-    location: "Madrid, Spain",
-    startDate: "2018-09",
-    endDate: "2022-06",
-    description: "Bachelor's degree focused on software engineering, algorithms, and web development."
-  },
-  {
-    id: "5",
-    type: "achievement",
-    title: "Best Innovation Award",
-    organization: "Tech Hackathon 2022",
-    startDate: "2022-03",
-    description: "Won first place for developing an AI-powered accessibility tool that helps visually impaired users navigate websites."
-  }
-];
+import { useQuery } from "@tanstack/react-query";
+import type { TimelineItem } from "@shared/schema";
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -107,7 +43,7 @@ const formatDate = (dateStr: string) => {
   });
 };
 
-const TimelineItem = ({ item, index }: { item: TimelineItem; index: number }) => {
+const TimelineItemComponent = ({ item, index }: { item: TimelineItem; index: number }) => {
   const isEven = index % 2 === 0;
 
   return (
@@ -147,7 +83,7 @@ const TimelineItem = ({ item, index }: { item: TimelineItem; index: number }) =>
             
             <p className="text-white/80 text-sm mb-4">{item.description}</p>
             
-            {item.technologies && (
+            {item.technologies && item.technologies.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {item.technologies.map((tech) => (
                   <Badge 
@@ -183,6 +119,22 @@ const TimelineItem = ({ item, index }: { item: TimelineItem; index: number }) =>
 };
 
 export default function Timeline() {
+  const { data: timelineItems = [], isLoading } = useQuery<TimelineItem[]>({
+    queryKey: ["/api/timeline"],
+  });
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-[#0A0A0A]">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#E94560] mx-auto"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 bg-[#0A0A0A]">
       <div className="container mx-auto px-4">
@@ -199,14 +151,20 @@ export default function Timeline() {
           </p>
         </motion.div>
 
-        <div className="relative max-w-6xl mx-auto">
-          {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#16213E] h-full"></div>
-          
-          {timelineData.map((item, index) => (
-            <TimelineItem key={item.id} item={item} index={index} />
-          ))}
-        </div>
+        {timelineItems.length === 0 ? (
+          <div className="text-center text-white/70">
+            <p>No hay elementos en el timeline aún. Agrega algunos desde el panel de administración.</p>
+          </div>
+        ) : (
+          <div className="relative max-w-6xl mx-auto">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#16213E] h-full"></div>
+            
+            {timelineItems.map((item, index) => (
+              <TimelineItemComponent key={item.id} item={item} index={index} />
+            ))}
+          </div>
+        )}
 
         {/* Timeline Legend */}
         <motion.div

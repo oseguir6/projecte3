@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema, insertSiteContentSchema, insertBlogSchema } from "@shared/schema";
+import { insertContactSchema, loginSchema, insertProjectSchema, insertTechnologySchema, insertSiteContentSchema, insertBlogSchema, insertTimelineItemSchema } from "@shared/schema";
 import session from "express-session";
 
 declare module "express-session" {
@@ -259,6 +259,53 @@ export function registerRoutes(app: Express): Server {
     } catch (error) {
       console.error('Error updating site content:', error);
       res.status(400).json({ message: "Invalid content data" });
+    }
+  });
+
+  // Timeline routes
+  app.get("/api/timeline", async (req: Request, res: Response) => {
+    try {
+      const items = await storage.getTimelineItems();
+      res.json(items);
+    } catch (error) {
+      res.status(500).json({ message: "Error getting timeline items" });
+    }
+  });
+
+  app.post("/api/admin/timeline", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const itemData = insertTimelineItemSchema.parse(req.body);
+      const item = await storage.createTimelineItem(itemData);
+      res.status(201).json(item);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid timeline item data" });
+    }
+  });
+
+  app.put("/api/admin/timeline/:id", requireAuth, async (req: Request, res: Response) => {
+    try {
+      const itemData = insertTimelineItemSchema.parse(req.body);
+      const item = await storage.updateTimelineItem(Number(req.params.id), itemData);
+      res.json(item);
+    } catch (error) {
+      if (error instanceof Error && error.message === "Timeline item not found") {
+        res.status(404).json({ message: "Timeline item not found" });
+      } else {
+        res.status(400).json({ message: "Invalid timeline item data" });
+      }
+    }
+  });
+
+  app.delete("/api/admin/timeline/:id", requireAuth, async (req: Request, res: Response) => {
+    try {
+      await storage.deleteTimelineItem(Number(req.params.id));
+      res.status(204).send();
+    } catch (error) {
+      if (error instanceof Error && error.message === "Timeline item not found") {
+        res.status(404).json({ message: "Timeline item not found" });
+      } else {
+        res.status(500).json({ message: "Error deleting timeline item" });
+      }
     }
   });
 
