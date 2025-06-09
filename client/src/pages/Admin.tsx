@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import ProjectForm from "@/components/ProjectForm";
 import TechnologyForm from "@/components/TechnologyForm";
+import TimelineForm from "@/components/TimelineForm";
 import {
   Card,
   CardContent,
@@ -25,7 +26,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Terminal, Users, Eye } from "lucide-react";
-import type { Contact, Visit, Project, Technology, Blog, SiteContent } from "@shared/schema";
+import type { Contact, Visit, Project, Technology, Blog, SiteContent, TimelineItem } from "@shared/schema";
 import { useState } from "react";
 import SiteContentForm from "@/components/SiteContentForm";
 import BlogForm from "@/components/BlogForm";
@@ -40,6 +41,8 @@ export default function Admin() {
   const [selectedTechnology, setSelectedTechnology] = useState<Technology | null>(null);
   const [isBlogModalOpen, setIsBlogModalOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+  const [isTimelineModalOpen, setIsTimelineModalOpen] = useState(false);
+  const [selectedTimelineItem, setSelectedTimelineItem] = useState<TimelineItem | null>(null);
 
   const { data: contacts = [] } = useQuery<Contact[]>({
     queryKey: ["/api/admin/contacts"],
@@ -63,6 +66,10 @@ export default function Admin() {
 
   const { data: siteContent = [] } = useQuery<SiteContent[]>({
     queryKey: ["/api/site-content"],
+  });
+
+  const { data: timelineItems = [] } = useQuery<TimelineItem[]>({
+    queryKey: ["/api/timeline"],
   });
 
   const createProjectMutation = useMutation({
@@ -257,6 +264,71 @@ export default function Admin() {
     },
   });
 
+  // Timeline mutations
+  const createTimelineMutation = useMutation({
+    mutationFn: async (data: any) => {
+      await apiRequest("POST", "/api/admin/timeline", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/timeline"] });
+      setIsTimelineModalOpen(false);
+      setSelectedTimelineItem(null);
+      toast({
+        title: "Success",
+        description: "Timeline item created successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create timeline item",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateTimelineMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      await apiRequest("PUT", `/api/admin/timeline/${id}`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/timeline"] });
+      setIsTimelineModalOpen(false);
+      setSelectedTimelineItem(null);
+      toast({
+        title: "Success",
+        description: "Timeline item updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update timeline item",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteTimelineMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest("DELETE", `/api/admin/timeline/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/timeline"] });
+      toast({
+        title: "Success",
+        description: "Timeline item deleted successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete timeline item",
+        variant: "destructive",
+      });
+    },
+  });
+
   const updateSiteContentMutation = useMutation({
     mutationFn: async ({ key, value }: { key: string; value: string }) => {
       await apiRequest("PUT", `/api/admin/site-content/${key}`, { value });
@@ -364,10 +436,11 @@ export default function Admin() {
         </div>
 
         <Tabs defaultValue="about" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 max-w-[1000px]">
+          <TabsList className="grid w-full grid-cols-8 max-w-[1200px]">
             <TabsTrigger value="about">About</TabsTrigger>
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="technologies">Technologies</TabsTrigger>
+            <TabsTrigger value="timeline">Timeline</TabsTrigger>
             <TabsTrigger value="blogs">Blogs</TabsTrigger>
             <TabsTrigger value="content">Site Content</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -678,6 +751,114 @@ export default function Admin() {
                         )}
                       </motion.div>
                     ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="timeline">
+            <Card className="bg-[#1A1A2E] border-[#16213E]">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle className="text-white">Timeline Management</CardTitle>
+                    <CardDescription>
+                      Manage your professional timeline and career milestones
+                    </CardDescription>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      setSelectedTimelineItem(null);
+                      setIsTimelineModalOpen(true);
+                    }}
+                    className="bg-[#E94560] hover:bg-[#E94560]/90"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Timeline Item
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[600px] pr-4">
+                  <div className="space-y-4">
+                    {timelineItems.length === 0 ? (
+                      <div className="text-center text-white/60 py-8">
+                        <p>No timeline items yet. Create your first one to get started!</p>
+                      </div>
+                    ) : (
+                      timelineItems.map((item) => (
+                        <motion.div
+                          key={item.id}
+                          className="bg-[#0A0A0A] p-4 rounded-lg border border-[#16213E]"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                        >
+                          <div className="flex justify-between items-start">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className={`w-3 h-3 rounded-full ${
+                                  item.type === 'work' ? 'bg-blue-500' :
+                                  item.type === 'education' ? 'bg-green-500' :
+                                  item.type === 'project' ? 'bg-purple-500' :
+                                  'bg-yellow-500'
+                                }`}></span>
+                                <h3 className="text-lg font-semibold text-white">
+                                  {item.title}
+                                </h3>
+                                {item.current && (
+                                  <span className="px-2 py-1 text-xs bg-[#E94560]/20 text-[#E94560] rounded-full">
+                                    Current
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-[#E94560] font-medium mb-1">{item.organization}</p>
+                              {item.location && (
+                                <p className="text-white/60 text-sm mb-2">{item.location}</p>
+                              )}
+                              <p className="text-white/80 text-sm mb-3">{item.description}</p>
+                              <div className="flex items-center gap-4 text-sm text-white/60">
+                                <span>{item.startDate}{item.endDate ? ` - ${item.endDate}` : item.current ? ' - Present' : ''}</span>
+                                <span className="capitalize">{item.type}</span>
+                              </div>
+                              {item.technologies && item.technologies.length > 0 && (
+                                <div className="flex flex-wrap gap-1 mt-2">
+                                  {item.technologies.map((tech) => (
+                                    <span
+                                      key={tech}
+                                      className="px-2 py-1 text-xs bg-[#16213E] text-white/70 rounded"
+                                    >
+                                      {tech}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex gap-2 ml-4">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  setSelectedTimelineItem(item);
+                                  setIsTimelineModalOpen(true);
+                                }}
+                                className="border-[#16213E] text-white hover:bg-[#16213E]"
+                              >
+                                <Pencil className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => deleteTimelineMutation.mutate(item.id)}
+                                className="border-red-500 text-red-500 hover:bg-red-500/10"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))
+                    )}
                   </div>
                 </ScrollArea>
               </CardContent>
