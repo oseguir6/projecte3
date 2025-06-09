@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "type": "work",
+    "title": "ss",
+    "organization": "ss",
+    "location": "ss",
+    "startDate": "2025-06",
+    "endDate": "2025-07",
+    "description": "sdsd",
+    "current": false,
+    "id": 2,
+    "sortOrder": 2,
+    "technologies": null,
+    "createdAt": "2025-06-09T14:51:58.225Z"
+  }
+]
